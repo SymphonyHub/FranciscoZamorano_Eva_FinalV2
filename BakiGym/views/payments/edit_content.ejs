@@ -1,0 +1,10 @@
+<section>
+    <h2>Editar Pago</h2>
+    <form action="/payments/<%= payment.id %>?_method=PUT" method="POST">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= payment.name %>">
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description"><%= payment.description %></textarea>
+        <button type="submit">Guardar</button>
+    </form>
+</section>

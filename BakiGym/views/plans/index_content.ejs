@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Planes</h2>
+    <ul>
+        <% plans.forEach(plan => { %>
+            <li><a href="/plans/<%= plan.id %>"><%= plan.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/plans/new">Crear Nuevo Plan</a>
+</section>

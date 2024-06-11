@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Equipos</h2>
+    <ul>
+        <% equipments.forEach(equipment => { %>
+            <li><a href="/equipments/<%= equipment.id %>"><%= equipment.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/equipments/new">Crear Nuevo Equipo</a>
+</section>

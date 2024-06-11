@@ -1,0 +1,10 @@
+<section>
+    <h2>Editar Entrenador</h2>
+    <form action="/trainers/<%= trainer.id %>?_method=PUT" method="POST">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= trainer.name %>">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= trainer.email %>">
+        <button type="submit">Guardar</button>
+    </form>
+</section>

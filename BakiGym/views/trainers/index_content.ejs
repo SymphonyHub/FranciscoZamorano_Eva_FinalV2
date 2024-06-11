@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Entrenadores</h2>
+    <ul>
+        <% trainers.forEach(trainer => { %>
+            <li><a href="/trainers/<%= trainer.id %>"><%= trainer.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/trainers/new">Crear Nuevo Entrenador</a>
+</section>

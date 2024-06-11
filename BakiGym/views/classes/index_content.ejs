@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Clases</h2>
+    <ul>
+        <% classes.forEach(classItem => { %>
+            <li><a href="/classes/<%= classItem.id %>"><%= classItem.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/classes/new">Crear Nueva Clase</a>
+</section>

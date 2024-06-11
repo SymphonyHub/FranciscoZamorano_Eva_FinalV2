@@ -1,0 +1,10 @@
+<section>
+    <h2>Editar Equipo</h2>
+    <form action="/equipments/<%= equipment.id %>?_method=PUT" method="POST">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" value="<%= equipment.name %>">
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description"><%= equipment.description %></textarea>
+        <button type="submit">Guardar</button>
+    </form>
+</section>

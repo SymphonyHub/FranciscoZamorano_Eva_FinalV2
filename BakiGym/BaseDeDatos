@@ -1,0 +1,130 @@
+CREATE DATABASE gymdb;
+
+USE gymdb;
+
+CREATE TABLE Users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Trainers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    specialty VARCHAR(100) NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Classes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    trainer_id INT,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (trainer_id) REFERENCES Trainers(id)
+    ON DELETE SET NULL
+);
+
+CREATE TABLE Reservations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    class_id INT,
+    date DATE NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (class_id) REFERENCES Classes(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE Plans (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    duration INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    plan_id INT,
+    amount DECIMAL(10, 2) NOT NULL,
+    date DATE NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+    ON DELETE CASCADE,
+    FOREIGN KEY (plan_id) REFERENCES Plans(id)
+);
+
+CREATE TABLE Equipment (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    quantity INT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Feedback (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    message TEXT NOT NULL,
+    date DATE NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users(id)
+    ON DELETE CASCADE
+);
+
+
+
+
+
+INSERT INTO Users (name, email, password) VALUES
+('Pipe Saurio', 'Pipe@Gmail.com', 'password123'),
+('Jesus Vidal', 'ResidenteCuatro@Gmail.com', 'password123'),
+('Hopu Andrew', 'HoAn@Gmail.com', 'password123');
+
+INSERT INTO Trainers (name, specialty) VALUES
+('Alice Johnson', 'Yoga'),
+('Bob Martin', 'Pilates'),
+('Charlie Clark', 'Entrenamiento de Fuerza');
+
+INSERT INTO Classes (name, description, trainer_id) VALUES
+('Morning Yoga', 'Una sesión de yoga matutina relajante', 1),
+('Evening Pilates', 'Una sesión de pilates vespertina energizante', 2),
+('Strength Training Basics', 'Introducción al entrenamiento de fuerza', 3);
+
+INSERT INTO Plans (name, price, duration) VALUES
+('Monthly Plan', 50.00, 30),
+('Quarterly Plan', 135.00, 90),
+('Annual Plan', 500.00, 365);
+
+INSERT INTO Equipment (name, description, quantity) VALUES
+('Treadmill', 'Una cinta de correr de alta calidad', 5),
+('Dumbbells', 'Juego de mancuernas de 5 a 50 libras', 20),
+('Yoga Mats', 'Tapetes de yoga antideslizantes', 10);
+
+INSERT INTO Feedback (user_id, message, date) VALUES
+(1, 'Gimnasio excelente y buen equipamiento!', '2024-05-30'),
+(2, 'Amo las clases de yoga!', '2024-05-29'),
+(3, 'Empleados amistosos y equipo bien mantenido.', '2024-05-28');
+
+INSERT INTO Reservations (user_id, class_id, date) VALUES
+(1, 1, '2024-06-01'),
+(2, 2, '2024-06-02'),
+(3, 3, '2024-06-03');
+
+INSERT INTO Payments (user_id, plan_id, amount, date) VALUES
+(1, 1, 50.00, '2024-05-30'),
+(2, 2, 135.00, '2024-05-29'),
+(3, 3, 500.00, '2024-05-28');

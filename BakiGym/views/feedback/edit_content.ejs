@@ -1,0 +1,10 @@
+<section>
+    <h2>Editar Comentario</h2>
+    <form action="/feedback/<%= feedback.id %>?_method=PUT" method="POST">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" value="<%= feedback.title %>">
+        <label for="description">Descripción:</label>
+        <textarea id="description" name="description"><%= feedback.description %></textarea>
+        <button type="submit">Guardar</button>
+    </form>
+</section>

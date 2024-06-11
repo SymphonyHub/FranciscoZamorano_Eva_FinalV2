@@ -1,0 +1,9 @@
+<section>
+    <h2>Detalle de Clase</h2>
+    <p>Nombre: <%= classItem.name %></p>
+    <p>Descripción: <%= classItem.description %></p>
+    <a href="/classes/<%= classItem.id %>/edit">Editar</a>
+    <form action="/classes/<%= classItem.id %>?_method=DELETE" method="POST">
+        <button type="submit">Eliminar</button>
+    </form>
+</section>

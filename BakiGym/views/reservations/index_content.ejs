@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Reservas</h2>
+    <ul>
+        <% reservations.forEach(reservation => { %>
+            <li><a href="/reservations/<%= reservation.id %>"><%= reservation.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/reservations/new">Crear Nueva Reserva</a>
+</section>

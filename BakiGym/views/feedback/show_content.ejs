@@ -1,0 +1,9 @@
+<section>
+    <h2>Detalle de Comentario</h2>
+    <p>Título: <%= feedback.title %></p>
+    <p>Descripción: <%= feedback.description %></p>
+    <a href="/feedback/<%= feedback.id %>/edit">Editar</a>
+    <form action="/feedback/<%= feedback.id %>?_method=DELETE" method="POST">
+        <button type="submit">Eliminar</button>
+    </form>
+</section>

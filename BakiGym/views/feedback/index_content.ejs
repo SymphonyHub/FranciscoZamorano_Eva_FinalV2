@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Comentarios</h2>
+    <ul>
+        <% feedbacks.forEach(feedback => { %>
+            <li><a href="/feedback/<%= feedback.id %>"><%= feedback.title %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/feedback/new">Crear Nuevo Comentario</a>
+</section>

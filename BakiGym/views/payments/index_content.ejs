@@ -1,0 +1,9 @@
+<section>
+    <h2>Lista de Pagos</h2>
+    <ul>
+        <% payments.forEach(payment => { %>
+            <li><a href="/payments/<%= payment.id %>"><%= payment.name %></a></li>
+        <% }) %>
+    </ul>
+    <a href="/payments/new">Crear Nuevo Pago</a>
+</section>
