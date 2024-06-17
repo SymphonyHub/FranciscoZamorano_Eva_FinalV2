@@ -1,20 +1,21 @@
-const { DataTypes } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
-const User = require('./User');
-const Plan = require('./Plan');
 
 const Payment = sequelize.define('Payment', {
     amount: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: false
+        allowNull: false,
     },
     date: {
         type: DataTypes.DATE,
-        allowNull: false
-    }
+        allowNull: false,
+    },
+    payment_method: {
+        type: DataTypes.ENUM('efectivo', 'credito', 'debito'),
+        allowNull: false,
+    },
+}, {
+    timestamps: true,
 });
-
-Payment.belongsTo(User, { foreignKey: 'user_id' });
-Payment.belongsTo(Plan, { foreignKey: 'plan_id' });
 
 module.exports = Payment;

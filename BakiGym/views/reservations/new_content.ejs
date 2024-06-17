@@ -1,10 +1,30 @@
-<section>
-    <h2>Nueva Reserva</h2>
-    <form action="/reservations" method="POST">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name">
-        <label for="description">Descripción:</label>
-        <textarea id="description" name="description"></textarea>
-        <button type="submit">Crear</button>
-    </form>
-</section>
+<div class="container mt-5">
+    <h2 class="text-center">Nueva Reserva</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form action="/reservations" method="POST">
+                <div class="form-group">
+                    <label for="user_id">Usuario:</label>
+                    <select class="form-control" id="user_id" name="user_id" required>
+                        <% users.forEach(user => { %>
+                            <option value="<%= user.id %>"><%= user.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="class_id">Clase:</label>
+                    <select class="form-control" id="class_id" name="class_id" required>
+                        <% classes.forEach(classItem => { %>
+                            <option value="<%= classItem.id %>"><%= classItem.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Fecha:</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block">Crear</button>
+            </form>
+        </div>
+    </div>
+</div>

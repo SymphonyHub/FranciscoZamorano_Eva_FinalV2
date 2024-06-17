@@ -1,1 +1,23 @@
 <%- include('../layout', { title: 'Lista de Entrenadores', content: 'trainers/index_content' }) %>
+
+<script>
+  $('#editTrainerModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var name = button.data('name');
+    var specialty = button.data('specialty');
+
+    var modal = $(this);
+    modal.find('.modal-body #edit_name').val(name);
+    modal.find('.modal-body #edit_specialty').val(specialty);
+    modal.find('#editTrainerForm').attr('action', '/trainers/' + id + '?_method=PUT');
+  });
+
+  $('#deleteTrainerModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+
+    var modal = $(this);
+    modal.find('#deleteTrainerForm').attr('action', '/trainers/' + id + '?_method=DELETE');
+  });
+</script>

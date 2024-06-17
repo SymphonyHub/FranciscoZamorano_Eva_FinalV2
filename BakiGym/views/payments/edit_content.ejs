@@ -1,10 +1,14 @@
 <section>
     <h2>Editar Pago</h2>
     <form action="/payments/<%= payment.id %>?_method=PUT" method="POST">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" value="<%= payment.name %>">
-        <label for="description">Descripción:</label>
-        <textarea id="description" name="description"><%= payment.description %></textarea>
-        <button type="submit">Guardar</button>
+        <div class="form-group">
+            <label for="name">Nombre:</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= payment.name %>">
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción:</label>
+            <textarea class="form-control" id="description" name="description"><%= payment.description %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </section>

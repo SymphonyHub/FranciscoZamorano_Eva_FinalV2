@@ -2,8 +2,8 @@
     <h2>Detalle de Equipo</h2>
     <p>Nombre: <%= equipment.name %></p>
     <p>Descripción: <%= equipment.description %></p>
-    <a href="/equipments/<%= equipment.id %>/edit">Editar</a>
-    <form action="/equipments/<%= equipment.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
+    <a href="/equipments/<%= equipment.id %>/edit" class="btn btn-primary">Editar</a>
+    <form action="/equipments/<%= equipment.id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>
 </section>

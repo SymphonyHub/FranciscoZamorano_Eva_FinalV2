@@ -13,6 +13,6 @@ const Class = sequelize.define('Class', {
     }
 });
 
-Class.belongsTo(Trainer, { foreignKey: 'trainer_id' });
+Class.belongsTo(Trainer, { foreignKey: 'trainer_id', as: 'Trainer' });
 
 module.exports = Class;

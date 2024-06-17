@@ -14,6 +14,8 @@ const Plan = sequelize.define('Plan', {
         type: DataTypes.INTEGER,
         allowNull: false
     }
+}, {
+    timestamps: true
 });
 
 module.exports = Plan;

@@ -1,70 +1,40 @@
 const express = require('express');
 const router = express.Router();
-const Feedback = require('../models/Feedback');
+const feedbackController = require('../controllers/feedbackController');
 
-// Obtener todos los comentarios
-router.get('/', async (req, res) => {
-    try {
-        const feedbacks = await Feedback.findAll();
-        res.render('feedback/index', { feedbacks });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
+// Obtener todos los feedbacks
+router.get('/', feedbackController.getAllFeedback);
+
+// Formulario para nuevo feedback
+router.get('/new', async (req, res) => {
+    const users = await require('../models/User').findAll();
+    res.render('feedback/new', { users });
 });
 
-// Obtener un comentario por ID
-router.get('/:id', async (req, res) => {
-    try {
-        const feedback = await Feedback.findByPk(req.params.id);
-        res.render('feedback/show', { feedback });
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
+// Crear un nuevo feedback
+router.post('/', feedbackController.createFeedback);
 
-// Formulario para nuevo comentario
-router.get('/new', (req, res) => {
-    res.render('feedback/new');
-});
+// Obtener un feedback por ID
+router.get('/:id', feedbackController.getFeedbackById);
 
-// Crear un nuevo comentario
-router.post('/', async (req, res) => {
-    try {
-        await Feedback.create(req.body);
-        res.redirect('/feedback');
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
-
-// Formulario para editar comentario
+// Formulario para editar feedback
 router.get('/:id/edit', async (req, res) => {
     try {
-        const feedback = await Feedback.findByPk(req.params.id);
-        res.render('feedback/edit', { feedback });
+        const feedback = await require('../models/Feedback').findByPk(req.params.id);
+        if (!feedback) {
+            return res.status(404).send('Feedback not found');
+        }
+        const users = await require('../models/User').findAll();
+        res.render('feedback/edit', { feedback, users });
     } catch (error) {
         res.status(500).send(error.message);
     }
 });
 
-// Actualizar un comentario
-router.put('/:id', async (req, res) => {
-    try {
-        await Feedback.update(req.body, { where: { id: req.params.id } });
-        res.redirect(`/feedback/${req.params.id}`);
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
+// Actualizar un feedback
+router.put('/:id', feedbackController.updateFeedback);
 
-// Eliminar un comentario
-router.delete('/:id', async (req, res) => {
-    try {
-        await Feedback.destroy({ where: { id: req.params.id } });
-        res.redirect('/feedback');
-    } catch (error) {
-        res.status(500).send(error.message);
-    }
-});
+// Eliminar un feedback
+router.delete('/:id', feedbackController.deleteFeedback);
 
 module.exports = router;

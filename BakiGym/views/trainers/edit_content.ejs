@@ -1,10 +1,14 @@
-<section>
-    <h2>Editar Entrenador</h2>
+<div class="container mt-5">
+    <h2 class="text-center">Editar Entrenador</h2>
     <form action="/trainers/<%= trainer.id %>?_method=PUT" method="POST">
-        <label for="name">Nombre:</label>
-        <input type="text" id="name" name="name" value="<%= trainer.name %>">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" value="<%= trainer.email %>">
-        <button type="submit">Guardar</button>
+        <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" name="name" value="<%= trainer.name %>" required>
+        </div>
+        <div class="form-group">
+            <label for="specialty">Especialidad</label>
+            <input type="text" class="form-control" id="specialty" name="specialty" value="<%= trainer.specialty %>" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
-</section>
+</div>

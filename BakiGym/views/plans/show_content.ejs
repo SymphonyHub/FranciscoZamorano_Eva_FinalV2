@@ -2,8 +2,8 @@
     <h2>Detalle de Plan</h2>
     <p>Nombre: <%= plan.name %></p>
     <p>Descripción: <%= plan.description %></p>
-    <a href="/plans/<%= plan.id %>/edit">Editar</a>
-    <form action="/plans/<%= plan.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
+    <a href="/plans/<%= plan.id %>/edit" class="btn btn-primary">Editar</a>
+    <form action="/plans/<%= plan.id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>
 </section>

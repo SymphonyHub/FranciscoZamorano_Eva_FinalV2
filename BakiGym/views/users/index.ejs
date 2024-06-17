@@ -1,1 +1,24 @@
 <%- include('../layout', { title: 'Lista de Usuarios', content: 'users/index_content' }) %>
+
+<!-- Incluye el script al final del archivo -->
+<script>
+  $('#editUserModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var name = button.data('name');
+    var email = button.data('email');
+
+    var modal = $(this);
+    modal.find('.modal-body #edit_name').val(name);
+    modal.find('.modal-body #edit_email').val(email);
+    modal.find('#editUserForm').attr('action', '/users/' + id + '?_method=PUT');
+  });
+
+  $('#deleteUserModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+
+    var modal = $(this);
+    modal.find('#deleteUserForm').attr('action', '/users/' + id + '?_method=DELETE');
+  });
+</script>

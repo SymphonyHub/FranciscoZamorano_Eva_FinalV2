@@ -1,41 +1,15 @@
-const Payment = require('../models/Payment');
+const { Payment, User, Plan } = require('../models');
 
-exports.createPayment = async (req, res) => {
+exports.getAllPayments = async (req, res) => {
     try {
-        const newPayment = new Payment(req.body);
-        await newPayment.save();
-        res.status(201).json(newPayment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
-
-exports.getPayment = async (req, res) => {
-    try {
-        const payment = await Payment.findById(req.params.id);
-        if (!payment) return res.status(404).json({ error: 'Payment not found' });
-        res.status(200).json(payment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
-
-exports.updatePayment = async (req, res) => {
-    try {
-        const payment = await Payment.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!payment) return res.status(404).json({ error: 'Payment not found' });
-        res.status(200).json(payment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-};
-
-exports.deletePayment = async (req, res) => {
-    try {
-        const payment = await Payment.findByIdAndDelete(req.params.id);
-        if (!payment) return res.status(404).json({ error: 'Payment not found' });
-        res.status(200).json({ message: 'Payment deleted successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const payments = await Payment.findAll({
+            include: [
+                { model: User, as: 'PaymentUser' },
+                { model: Plan, as: 'PaymentPlan' }
+            ]
+        });
+        res.render('payments/index', { payments });
+    } catch (error) {
+        res.status(500).json({ error: { message: error.message } });
     }
 };

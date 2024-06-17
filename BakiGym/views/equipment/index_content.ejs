@@ -1,9 +1,17 @@
-<section>
-    <h2>Lista de Equipos</h2>
-    <ul>
-        <% equipments.forEach(equipment => { %>
-            <li><a href="/equipments/<%= equipment.id %>"><%= equipment.name %></a></li>
-        <% }) %>
-    </ul>
-    <a href="/equipments/new">Crear Nuevo Equipo</a>
-</section>
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Lista de Equipos</h1>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <% equipments.forEach(function(equipment) { %>
+                <div class="card mb-4">
+                    <img class="card-img-top mx-auto d-block" src="<%= '/' + equipment.imageUrl %>" alt="<%= equipment.name %>">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><%= equipment.name %></h5>
+                        <p class="card-text"><%= equipment.description %></p>
+                        <p class="card-text"><strong>Cantidad:</strong> <%= equipment.quantity %></p>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+</div>

@@ -2,9 +2,8 @@ const Trainer = require('../models/Trainer');
 
 exports.createTrainer = async (req, res) => {
     try {
-        const newTrainer = new Trainer(req.body);
-        await newTrainer.save();
-        res.status(201).json(newTrainer);
+        const newTrainer = await Trainer.create(req.body);
+        res.redirect('/trainers');
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -12,9 +11,9 @@ exports.createTrainer = async (req, res) => {
 
 exports.getTrainer = async (req, res) => {
     try {
-        const trainer = await Trainer.findById(req.params.id);
+        const trainer = await Trainer.findByPk(req.params.id);
         if (!trainer) return res.status(404).json({ error: 'Trainer not found' });
-        res.status(200).json(trainer);
+        res.render('trainers/show', { trainer });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -22,9 +21,10 @@ exports.getTrainer = async (req, res) => {
 
 exports.updateTrainer = async (req, res) => {
     try {
-        const trainer = await Trainer.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        const trainer = await Trainer.findByPk(req.params.id);
         if (!trainer) return res.status(404).json({ error: 'Trainer not found' });
-        res.status(200).json(trainer);
+        await trainer.update(req.body);
+        res.redirect(`/trainers/${trainer.id}`);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -32,9 +32,33 @@ exports.updateTrainer = async (req, res) => {
 
 exports.deleteTrainer = async (req, res) => {
     try {
-        const trainer = await Trainer.findByIdAndDelete(req.params.id);
+        const trainer = await Trainer.findByPk(req.params.id);
         if (!trainer) return res.status(404).json({ error: 'Trainer not found' });
-        res.status(200).json({ message: 'Trainer deleted successfully' });
+        await trainer.destroy();
+        res.redirect('/trainers');
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.getAllTrainers = async (req, res) => {
+    try {
+        const trainers = await Trainer.findAll();
+        res.render('trainers/index', { trainers });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.renderNewTrainerForm = (req, res) => {
+    res.render('trainers/new');
+};
+
+exports.renderEditTrainerForm = async (req, res) => {
+    try {
+        const trainer = await Trainer.findByPk(req.params.id);
+        if (!trainer) return res.status(404).json({ error: 'Trainer not found' });
+        res.render('trainers/edit', { trainer });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

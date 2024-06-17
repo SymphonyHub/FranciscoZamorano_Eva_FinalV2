@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
+const { DataTypes } = require('sequelize');
 
 const Trainer = sequelize.define('Trainer', {
     name: {
@@ -10,6 +10,8 @@ const Trainer = sequelize.define('Trainer', {
         type: DataTypes.STRING,
         allowNull: false
     }
+}, {
+    timestamps: true
 });
 
 module.exports = Trainer;

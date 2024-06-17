@@ -1,9 +1,123 @@
-<section>
-    <h2>Lista de Clases</h2>
-    <ul>
-        <% classes.forEach(classItem => { %>
-            <li><a href="/classes/<%= classItem.id %>"><%= classItem.name %></a></li>
-        <% }) %>
-    </ul>
-    <a href="/classes/new">Crear Nueva Clase</a>
-</section>
+<div class="container mt-5">
+    <h2 class="text-center">Lista de Clases</h2>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Entrenador</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% classes.forEach(function(classItem) { %>
+                    <tr>
+                        <td><%= classItem.id %></td>
+                        <td><%= classItem.name %></td>
+                        <td><%= classItem.description %></td>
+                        <td><%= classItem.Trainer.name %></td>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editClassModal" data-id="<%= classItem.id %>" data-name="<%= classItem.name %>" data-description="<%= classItem.description %>" data-trainerid="<%= classItem.trainer_id %>">Editar</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteClassModal" data-id="<%= classItem.id %>">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createClassModal">Crear Nueva Clase</button>
+</div>
+
+<!-- Modal para crear clase -->
+<div class="modal fade" id="createClassModal" tabindex="-1" aria-labelledby="createClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createClassModalLabel">Crear Nueva Clase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/classes" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Descripción</label>
+                        <textarea class="form-control" id="description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="trainer_id">Entrenador</label>
+                        <select class="form-control" id="trainer_id" name="trainer_id" required>
+                            <% trainers.forEach(function(trainer) { %>
+                                <option value="<%= trainer.id %>"><%= trainer.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar clase -->
+<div class="modal fade" id="editClassModal" tabindex="-1" aria-labelledby="editClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editClassModalLabel">Editar Clase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editClassForm" method="POST">
+                    <div class="form-group">
+                        <label for="edit_name">Nombre</label>
+                        <input type="text" class="form-control" id="edit_name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_description">Descripción</label>
+                        <textarea class="form-control" id="edit_description" name="description" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_trainer_id">Entrenador</label>
+                        <select class="form-control" id="edit_trainer_id" name="trainer_id" required>
+                            <% trainers.forEach(function(trainer) { %>
+                                <option value="<%= trainer.id %>"><%= trainer.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar clase -->
+<div class="modal fade" id="deleteClassModal" tabindex="-1" aria-labelledby="deleteClassModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteClassModalLabel">Eliminar Clase</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta clase?</p>
+                <form id="deleteClassForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

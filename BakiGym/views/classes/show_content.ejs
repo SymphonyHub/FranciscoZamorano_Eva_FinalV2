@@ -1,9 +1,16 @@
-<section>
-    <h2>Detalle de Clase</h2>
-    <p>Nombre: <%= classItem.name %></p>
-    <p>Descripción: <%= classItem.description %></p>
-    <a href="/classes/<%= classItem.id %>/edit">Editar</a>
-    <form action="/classes/<%= classItem.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
-    </form>
-</section>
+<div class="container mt-5">
+    <h2 class="text-center">Detalle de Clase</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <p><strong>Nombre:</strong> <%= classItem.name %></p>
+            <p><strong>Descripción:</strong> <%= classItem.description %></p>
+            <p><strong>Entrenador:</strong> <%= classItem.Trainer ? classItem.Trainer.name : 'N/A' %></p>
+            <div class="d-flex justify-content-center">
+                <a href="/classes/<%= classItem.id %>/edit" class="btn btn-primary mr-2">Editar</a>
+                <form action="/classes/<%= classItem.id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

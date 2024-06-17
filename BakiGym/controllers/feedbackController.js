@@ -1,41 +1,61 @@
-const Feedback = require('../models/Feedback');
+const { Feedback, User } = require('../models');
 
-exports.createFeedback = async (req, res) => {
+exports.getAllFeedback = async (req, res) => {
     try {
-        const newFeedback = new Feedback(req.body);
-        await newFeedback.save();
-        res.status(201).json(newFeedback);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const feedbacks = await Feedback.findAll({
+            include: [{ model: User, as: 'User' }]
+        });
+        res.render('feedback/index', { feedbacks });
+    } catch (error) {
+        res.status(500).send(error.message);
     }
 };
 
-exports.getFeedback = async (req, res) => {
+exports.getFeedbackById = async (req, res) => {
     try {
-        const feedback = await Feedback.findById(req.params.id);
-        if (!feedback) return res.status(404).json({ error: 'Feedback not found' });
-        res.status(200).json(feedback);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const feedback = await Feedback.findByPk(req.params.id, {
+            include: [{ model: User, as: 'User' }]
+        });
+        if (!feedback) {
+            return res.status(404).send('Feedback not found');
+        }
+        res.render('feedback/show', { feedback });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+exports.createFeedback = async (req, res) => {
+    try {
+        await Feedback.create(req.body);
+        res.redirect('/feedback');
+    } catch (error) {
+        res.status(500).send(error.message);
     }
 };
 
 exports.updateFeedback = async (req, res) => {
     try {
-        const feedback = await Feedback.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!feedback) return res.status(404).json({ error: 'Feedback not found' });
-        res.status(200).json(feedback);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const feedback = await Feedback.findByPk(req.params.id);
+        if (!feedback) {
+            return res.status(404).send('Feedback not found');
+        }
+        await feedback.update(req.body);
+        res.redirect(`/feedback/${feedback.id}`);
+    } catch (error) {
+        res.status(500).send(error.message);
     }
 };
 
 exports.deleteFeedback = async (req, res) => {
     try {
-        const feedback = await Feedback.findByIdAndDelete(req.params.id);
-        if (!feedback) return res.status(404).json({ error: 'Feedback not found' });
-        res.status(200).json({ message: 'Feedback deleted successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const feedback = await Feedback.findByPk(req.params.id);
+        if (!feedback) {
+            return res.status(404).send('Feedback not found');
+        }
+        await feedback.destroy();
+        res.redirect('/feedback');
+    } catch (error) {
+        res.status(500).send(error.message);
     }
 };

@@ -58,6 +58,7 @@ CREATE TABLE Payments (
     plan_id INT,
     amount DECIMAL(10, 2) NOT NULL,
     date DATE NOT NULL,
+    payment_method ENUM('efectivo', 'credito', 'debito') NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(id)
@@ -70,6 +71,7 @@ CREATE TABLE Equipment (
     name VARCHAR(100) NOT NULL,
     description TEXT NOT NULL,
     quantity INT NOT NULL,
+    imageUrl VARCHAR(255) NOT NULL,
     createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
     updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -85,10 +87,7 @@ CREATE TABLE Feedback (
     ON DELETE CASCADE
 );
 
-
-
-
-
+-- Insertar datos de ejemplo
 INSERT INTO Users (name, email, password) VALUES
 ('Pipe Saurio', 'Pipe@Gmail.com', 'password123'),
 ('Jesus Vidal', 'ResidenteCuatro@Gmail.com', 'password123'),
@@ -105,14 +104,20 @@ INSERT INTO Classes (name, description, trainer_id) VALUES
 ('Strength Training Basics', 'Introducción al entrenamiento de fuerza', 3);
 
 INSERT INTO Plans (name, price, duration) VALUES
-('Monthly Plan', 50.00, 30),
-('Quarterly Plan', 135.00, 90),
-('Annual Plan', 500.00, 365);
+('Mensual', 35.000, 30),
+('Trimestral', 90.000, 90),
+('Anual', 230.000, 365);
 
-INSERT INTO Equipment (name, description, quantity) VALUES
-('Treadmill', 'Una cinta de correr de alta calidad', 5),
-('Dumbbells', 'Juego de mancuernas de 5 a 50 libras', 20),
-('Yoga Mats', 'Tapetes de yoga antideslizantes', 10);
+INSERT INTO Equipment (name, description, quantity, imageUrl) VALUES
+('Treadmill', 'Una cinta de correr de alta calidad', 20, 'images/trotadoras.png'),
+('Dumbbells', 'Juego de mancuernas de 5 a 50 libras', 20, 'images/mancuernas.png'),
+('Press', 'Barra con pesos ajustables', 20, 'images/pres.png'),
+('Press Inclinado', 'Barra con pesos ajustables inclinado', 20, 'images/pres inclinado.png'),
+('Peckdeck', 'maquina para el pecho ', 20, 'images/peckdeck.png'),
+('Jalonalpecho', 'Jalones al pecho con maquina', 20, 'images/jalon al pecho.png'),
+('Sentadillas con barra', 'Apartado para hacer sentadilas', 20, 'images/sentadillas con barra.png'),
+('Smith Machine', 'maquina multi power que permite hacer varios ejercicios', 20, 'images/smith machine.png');
+
 
 INSERT INTO Feedback (user_id, message, date) VALUES
 (1, 'Gimnasio excelente y buen equipamiento!', '2024-05-30'),
@@ -124,7 +129,7 @@ INSERT INTO Reservations (user_id, class_id, date) VALUES
 (2, 2, '2024-06-02'),
 (3, 3, '2024-06-03');
 
-INSERT INTO Payments (user_id, plan_id, amount, date) VALUES
-(1, 1, 50.00, '2024-05-30'),
-(2, 2, 135.00, '2024-05-29'),
-(3, 3, 500.00, '2024-05-28');
+INSERT INTO Payments (user_id, plan_id, amount, date, payment_method) VALUES
+(1, 1, 35.000, '2024-05-30', 'efectivo'),
+(2, 2, 90.000, '2024-05-29', 'credito'),
+(3, 3, 230.000, '2024-05-28', 'debito');

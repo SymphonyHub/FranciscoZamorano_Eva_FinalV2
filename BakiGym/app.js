@@ -23,6 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 
+// Servir archivos estáticos
+app.use(express.static(__dirname + '/public'));
+
 connectDB();
 
 // Usar rutas

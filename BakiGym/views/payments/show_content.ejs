@@ -2,8 +2,8 @@
     <h2>Detalle de Pago</h2>
     <p>Nombre: <%= payment.name %></p>
     <p>Descripción: <%= payment.description %></p>
-    <a href="/payments/<%= payment.id %>/edit">Editar</a>
-    <form action="/payments/<%= payment.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
+    <a href="/payments/<%= payment.id %>/edit" class="btn btn-primary">Editar</a>
+    <form action="/payments/<%= payment.id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>
 </section>

@@ -1,1 +1,25 @@
-<%- include('../layout', { title: 'Lista de Clases', content: 'classes/index_content' }) %>
+<%- include('../layout', { title: 'Lista de Clases', content: 'classes/index_content', trainers: trainers }) %>
+
+<script>
+  $('#editClassModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var name = button.data('name');
+    var description = button.data('description');
+    var trainerId = button.data('trainerid');
+
+    var modal = $(this);
+    modal.find('.modal-body #edit_name').val(name);
+    modal.find('.modal-body #edit_description').val(description);
+    modal.find('.modal-body #edit_trainer_id').val(trainerId);
+    modal.find('#editClassForm').attr('action', '/classes/' + id + '?_method=PUT');
+  });
+
+  $('#deleteClassModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+
+    var modal = $(this);
+    modal.find('#deleteClassForm').attr('action', '/classes/' + id + '?_method=DELETE');
+  });
+</script>

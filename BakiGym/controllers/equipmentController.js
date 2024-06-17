@@ -1,41 +1,68 @@
 const Equipment = require('../models/Equipment');
 
+// Obtener todos los equipos
+exports.getAllEquipments = async (req, res) => {
+    try {
+        const equipments = await Equipment.findAll();
+        res.render('equipment/index', { equipments });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Formulario para nuevo equipo
+exports.createEquipmentForm = (req, res) => {
+    res.render('equipment/new');
+};
+
+// Crear un nuevo equipo
 exports.createEquipment = async (req, res) => {
     try {
-        const newEquipment = new Equipment(req.body);
-        await newEquipment.save();
-        res.status(201).json(newEquipment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const { name, description, quantity, imageUrl } = req.body;
+        await Equipment.create({ name, description, quantity, imageUrl });
+        res.redirect('/equipments');
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
-exports.getEquipment = async (req, res) => {
+// Obtener un equipo por ID
+exports.getEquipmentById = async (req, res) => {
     try {
-        const equipment = await Equipment.findById(req.params.id);
-        if (!equipment) return res.status(404).json({ error: 'Equipment not found' });
-        res.status(200).json(equipment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const equipment = await Equipment.findByPk(req.params.id);
+        res.render('equipment/show', { equipment });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
+// Formulario para editar equipo
+exports.editEquipmentForm = async (req, res) => {
+    try {
+        const equipment = await Equipment.findByPk(req.params.id);
+        res.render('equipment/edit', { equipment });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// Actualizar un equipo
 exports.updateEquipment = async (req, res) => {
     try {
-        const equipment = await Equipment.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!equipment) return res.status(404).json({ error: 'Equipment not found' });
-        res.status(200).json(equipment);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        const { name, description, quantity, imageUrl } = req.body;
+        await Equipment.update({ name, description, quantity, imageUrl }, { where: { id: req.params.id } });
+        res.redirect(`/equipments/${req.params.id}`);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };
 
+// Eliminar un equipo
 exports.deleteEquipment = async (req, res) => {
     try {
-        const equipment = await Equipment.findByIdAndDelete(req.params.id);
-        if (!equipment) return res.status(404).json({ error: 'Equipment not found' });
-        res.status(200).json({ message: 'Equipment deleted successfully' });
-    } catch (err) {
-        res.status(500).json({ error: err.message });
+        await Equipment.destroy({ where: { id: req.params.id } });
+        res.redirect('/equipments');
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 };

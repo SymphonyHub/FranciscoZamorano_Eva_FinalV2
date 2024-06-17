@@ -1,9 +1,13 @@
-<section>
-    <h2>Detalle de Entrenador</h2>
-    <p>Nombre: <%= trainer.name %></p>
-    <p>Email: <%= trainer.email %></p>
-    <a href="/trainers/<%= trainer.id %>/edit">Editar</a>
-    <form action="/trainers/<%= trainer.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
-    </form>
-</section>
+<div class="container mt-5">
+    <h2 class="text-center">Detalles del Entrenador</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title"><%= trainer.name %></h5>
+            <p class="card-text"><strong>Especialidad:</strong> <%= trainer.specialty %></p>
+            <a href="/trainers/<%= trainer.id %>/edit" class="btn btn-primary">Editar</a>
+            <form action="/trainers/<%= trainer.id %>?_method=DELETE" method="POST" class="d-inline">
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>

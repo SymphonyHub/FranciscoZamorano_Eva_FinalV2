@@ -1,9 +1,10 @@
 <section>
     <h2>Detalle de Reserva</h2>
-    <p>Nombre: <%= reservation.name %></p>
-    <p>Descripción: <%= reservation.description %></p>
-    <a href="/reservations/<%= reservation.id %>/edit">Editar</a>
-    <form action="/reservations/<%= reservation.id %>?_method=DELETE" method="POST">
-        <button type="submit">Eliminar</button>
+    <p>Usuario: <%= reservation.User.name %></p>
+    <p>Clase: <%= reservation.Class.name %></p>
+    <p>Fecha: <%= reservation.date %></p>
+    <a href="/reservations/<%= reservation.id %>/edit" class="btn btn-primary">Editar</a>
+    <form action="/reservations/<%= reservation.id %>?_method=DELETE" method="POST" class="d-inline">
+        <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>
 </section>
