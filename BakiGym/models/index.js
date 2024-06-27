@@ -1,3 +1,4 @@
+const { sequelize } = require('../config/database');  // Asegúrate de que esta ruta es correcta
 const User = require('./User');
 const Feedback = require('./Feedback');
 const Trainer = require('./Trainer');
@@ -30,6 +31,7 @@ Class.hasMany(Reservation, { foreignKey: 'class_id', as: 'ClassReservations' });
 Reservation.belongsTo(Class, { foreignKey: 'class_id', as: 'ReservationClass' });
 
 module.exports = {
+    sequelize,  // Exportar sequelize para poder usarlo en otros modelos si es necesario
     User,
     Feedback,
     Trainer,

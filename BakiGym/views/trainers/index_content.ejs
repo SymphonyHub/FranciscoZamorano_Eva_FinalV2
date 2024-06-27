@@ -1,5 +1,10 @@
+<!-- index_content.ejs -->
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Entrenadores</h2>
+    <h2 class="text-center"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <input type="text" id="search" class="form-control form-control-sm w-25" placeholder="Buscar por ID o Nombre">
+        <button id="searchButton" class="btn btn-primary btn-sm ml-2">Buscar</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -10,7 +15,7 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="trainerTableBody">
                 <% trainers.forEach(function(trainer) { %>
                     <tr>
                         <td><%= trainer.id %></td>

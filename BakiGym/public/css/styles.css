@@ -1,36 +1,291 @@
-html, body {
-    height: 100%;
+/* styles.css */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+body.dark-mode {
+    background-color: #2a2a2a; /* Ajuste el color de fondo para modo noche */
+    color: #000000;
+}
+
+body.dark-mode .title, body.dark-mode .lead {
+    color: #ffffff; /* Cambia el color del título y texto en modo noche */
+}
+
+.title {
+    color: #343a40; /* Color del título en modo día */
+    text-align: center; /* Centramos el texto */
+    margin: 20px 0; /* Añadimos un margen para separarlo de otros elementos */
 }
 
 .footer {
-    position: relative;
-    bottom: 0;
+    background-color: #f8f9fa; /* Fondo del footer en modo día */
+    padding: 20px 0;
+    text-align: center;
+    color: #343a40; /* Letras oscuras en modo día */
     width: 100%;
-}
-/* Masonry CSS */
-.grid {
-    display: flex;
-    margin-left: -30px; /* gutter size offset */
-    width: auto;
-  }
-  
-.grid-item {
-    margin-bottom: 30px;
-    padding-left: 30px; /* gutter size */
-  }
-.card-img-top {
-    width: 100%;
-    height: auto;
 }
 
-.card {
-    max-width: 100%;
+body.dark-mode .footer {
+    background-color: #2a2a2a; /* Fondo del footer en modo noche */
+    color: #b0b0b0; /* Letras gris claro en modo noche */
+}
+
+/* Navbar Styles */
+.sidebar {
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    z-index: 100;
+    background: #cdcdcd; /* Fondo del sidebar en modo día, color personalizado */
+    transition: all 0.3s ease;
+    overflow-x: hidden;
+}
+
+body.dark-mode .sidebar {
+    background-color: #1c1c1c; /* Fondo del sidebar en modo noche */
+}
+
+.sidebar .sidebar-header {
+    padding: 20px;
+    background: #24292d;
+    color: #fff;
+}
+
+body.dark-mode .sidebar .sidebar-header {
+    background-color: #1c1c1c; /* Fondo del header del sidebar en modo noche */
+    color: #b0b0b0; /* Letras gris claro en modo noche */
+}
+
+.sidebar ul.components {
+    padding: 20px 0;
+}
+
+.sidebar ul p {
+    color: #343a40; /* Letras oscuras en modo día */
+    padding: 10px;
+}
+
+body.dark-mode .sidebar ul p {
+    color: #b0b0b0; /* Letras gris claro en modo noche */
+}
+
+.sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    width: 100%;
+    color: #000000; /* Letras blancas en modo día */
+    text-decoration: none;
+}
+
+body.dark-mode .sidebar ul li a {
+    color: #b0b0b0; /* Letras gris claro en modo noche */
+}
+
+.sidebar ul li a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+body.dark-mode .sidebar ul li a:hover {
+    background-color: #8c8686;
+    color: #ffffff;
+}
+
+.sidebar ul li a .nav-text {
+    display: inline-block;
+}
+
+.sidebar.active {
+    transform: translateX(-250px); /* Desplaza el sidebar hacia la izquierda */
+}
+
+.sidebar.active ul li a .nav-text {
+    display: none;
+}
+
+.main-content {
+    width: calc(100% - 250px);
+    margin-left: 250px;
+    transition: all 0.3s ease;
+    padding: 20px;
+}
+
+.sidebar.active + .main-content {
+    width: 100%;
+    margin-left: 0;
+}
+
+#sidebarCollapse {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: #343a40;
+    border: none;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+    transition: all 0.3s ease;
+}
+
+#sidebarCollapse:hover {
+    background: #007bff;
+}
+
+#sidebarCollapse i {
+    transition: transform 0.3s ease;
+}
+
+.sidebar.active + #sidebarCollapse {
+    transform: translateX(250px); /* Desplaza el botón hacia la derecha cuando el sidebar está contraído */
+}
+
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #343a40;
+    border: none;
+    color: #ffffff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+    transition: all 0.3s ease;
+}
+
+#themeToggle:hover {
+    background: #007bff;
+}
+
+.table td, 
+.table th {
+    padding: 1rem;
+    color: #343a40; /* Color de texto para modo día */
+}
+
+body.dark-mode .table td, 
+body.dark-mode .table th {
+    color: #e0e0e0; /* Color de texto para modo noche */
+}
+
+.table .btn {
+    margin-right: 0.5rem;
+}
+
+/* Efecto de difuminado */
+.overlay-image {
+    position: relative;
+}
+
+.overlay-image img {
+    width: 100%;
+    height: auto;
+    filter: blur(2px);
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: #fff;
+    max-width: 500px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.overlay-text h1 {
+    font-size: 3.5rem;
+}
+
+.overlay-text p {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .overlay-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .overlay-text p {
+        font-size: 1rem;
+    }
+}
+
+/* Ajustes adicionales para modo noche */
+body.dark-mode .overlay-text {
+    color: #e0e0e0;
+}
+
+body.dark-mode .overlay-image img {
+    filter: blur(2px) brightness(0.5);
+}
+
+/* Carrusel */
+.carousel-inner {
+    max-width: 1200px; /* Ajusta el ancho según sea necesario */
     margin: 0 auto;
 }
 
-.text-center {
-    text-align: center;
+.carousel-image {
+    width: 100%;
+    height: 600px; /* Ajusta la altura según sea necesario */
+    object-fit: cover;
 }
-h1.text-center {
-    margin-bottom: 20px;
+
+.carousel-caption {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    text-align: left;
+    color: #ffffff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.carousel-caption h1 {
+    font-size: 3.5rem;
+}
+
+.carousel-caption p {
+    font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+    .carousel-caption h1 {
+        font-size: 2.5rem;
+    }
+
+    .carousel-caption p {
+        font-size: 1rem;
+    }
+}
+
+/* Ajuste de la velocidad de transición */
+.carousel-item {
+    transition: transform 0.5s ease-in-out; /* 30% más rápido que el valor predeterminado de 0.6s */
+}
+
+/* Ajuste del tamaño uniforme de las imágenes del carrusel */
+.carousel-item img {
+    width: 100%;
+    height: 600px; /* Ajusta la altura según sea necesario */
+    object-fit: cover;
 }

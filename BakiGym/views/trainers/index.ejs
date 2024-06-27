@@ -1,3 +1,4 @@
+<!-- index.ejs -->
 <%- include('../layout', { title: 'Lista de Entrenadores', content: 'trainers/index_content' }) %>
 
 <script>
@@ -19,5 +20,38 @@
 
     var modal = $(this);
     modal.find('#deleteTrainerForm').attr('action', '/trainers/' + id + '?_method=DELETE');
+  });
+
+  $(document).ready(function() {
+    $('#searchButton').click(function() {
+        const query = $('#search').val();
+        $.ajax({
+            url: '/trainers/search',
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                let tableBody = '';
+                data.forEach(function(trainer) {
+                    tableBody += `
+                        <tr>
+                            <td>${trainer.id}</td>
+                            <td>${trainer.name}</td>
+                            <td>${trainer.specialty}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editTrainerModal" data-id="${trainer.id}" data-name="${trainer.name}" data-specialty="${trainer.specialty}">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteTrainerModal" data-id="${trainer.id}">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                $('#trainerTableBody').html(tableBody);
+            },
+            error: function(err) {
+                console.log('Error:', err);
+            }
+        });
+    });
   });
 </script>

@@ -1,5 +1,10 @@
+<!-- index_content.ejs -->
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Reservas</h2>
+    <h2 class="text-center"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <input type="text" id="search" class="form-control form-control-sm w-25" placeholder="Buscar por ID o Nombre">
+        <button id="searchButton" class="btn btn-primary btn-sm ml-2">Buscar</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -11,25 +16,121 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <% reservations.forEach(reservation => { %>
+            <tbody id="reservationTableBody">
+                <% reservations.forEach(function(reservation) { %>
                     <tr>
                         <td><%= reservation.id %></td>
-                        <td><a href="/users/<%= reservation.user_id %>"><%= reservation.User.name %></a></td>
-                        <td><a href="/classes/<%= reservation.class_id %>"><%= reservation.Class.name %></a></td>
+                        <td><%= reservation.User.name %></td>
+                        <td><%= reservation.Class.name %></td>
                         <td><%= reservation.date %></td>
                         <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="/reservations/<%= reservation.id %>/edit" class="btn btn-primary btn-sm mr-2">Editar</a>
-                                <form action="/reservations/<%= reservation.id %>?_method=DELETE" method="POST">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editReservationModal" data-id="<%= reservation.id %>" data-user_id="<%= reservation.user_id %>" data-class_id="<%= reservation.class_id %>" data-date="<%= reservation.date %>">Editar</button>
+                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteReservationModal" data-id="<%= reservation.id %>">Eliminar</button>
                             </div>
                         </td>
                     </tr>
-                <% }) %>
+                <% }); %>
             </tbody>
         </table>
     </div>
-    <a href="/reservations/new" class="btn btn-primary mt-3">Crear Nueva Reserva</a>
+    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createReservationModal">Crear Nueva Reserva</button>
+</div>
+
+<!-- Modal para crear reserva -->
+<div class="modal fade" id="createReservationModal" tabindex="-1" aria-labelledby="createReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createReservationModalLabel">Crear Nueva Reserva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/reservations" method="POST">
+                    <div class="form-group">
+                        <label for="user_id">Usuario</label>
+                        <select class="form-control" id="user_id" name="user_id" required>
+                            <% users.forEach(function(user) { %>
+                                <option value="<%= user.id %>"><%= user.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="class_id">Clase</label>
+                        <select class="form-control" id="class_id" name="class_id" required>
+                            <% classes.forEach(function(classItem) { %>
+                                <option value="<%= classItem.id %>"><%= classItem.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Fecha</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar reserva -->
+<div class="modal fade" id="editReservationModal" tabindex="-1" aria-labelledby="editReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editReservationModalLabel">Editar Reserva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editReservationForm" method="POST">
+                    <div class="form-group">
+                        <label for="edit_user_id">Usuario</label>
+                        <select class="form-control" id="edit_user_id" name="user_id" required>
+                            <% users.forEach(function(user) { %>
+                                <option value="<%= user.id %>"><%= user.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_class_id">Clase</label>
+                        <select class="form-control" id="edit_class_id" name="class_id" required>
+                            <% classes.forEach(function(classItem) { %>
+                                <option value="<%= classItem.id %>"><%= classItem.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_date">Fecha</label>
+                        <input type="date" class="form-control" id="edit_date" name="date" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar reserva -->
+<div class="modal fade" id="deleteReservationModal" tabindex="-1" aria-labelledby="deleteReservationModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteReservationModalLabel">Eliminar Reserva</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar esta reserva?</p>
+                <form id="deleteReservationForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

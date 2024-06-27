@@ -1,5 +1,11 @@
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Usuarios</h2>
+    <h2 class="text-center"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <form action="/users/search" method="get" class="form-inline">
+            <input type="text" name="query" class="form-control mr-2" placeholder="Buscar usuario por ID o nombre">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -11,19 +17,25 @@
                 </tr>
             </thead>
             <tbody>
-                <% users.forEach(user => { %>
+                <% if (users.length === 0) { %>
                     <tr>
-                        <td><%= user.id %></td>
-                        <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
-                        <td><%= user.email %></td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" data-id="<%= user.id %>" data-name="<%= user.name %>" data-email="<%= user.email %>">Editar</button>
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" data-id="<%= user.id %>">Eliminar</button>
-                            </div>
-                        </td>
+                        <td colspan="4" class="text-center">No se encontraron usuarios</td>
                     </tr>
-                <% }) %>
+                <% } else { %>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><a href="/users/<%= user.id %>"><%= user.name %></a></td>
+                            <td><%= user.email %></td>
+                            <td>
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" data-id="<%= user.id %>" data-name="<%= user.name %>" data-email="<%= user.email %>">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" data-id="<%= user.id %>">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    <% }) %>
+                <% } %>
             </tbody>
         </table>
     </div>

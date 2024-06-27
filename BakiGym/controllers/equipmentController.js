@@ -1,68 +1,67 @@
 const Equipment = require('../models/Equipment');
 
-// Obtener todos los equipos
 exports.getAllEquipments = async (req, res) => {
     try {
         const equipments = await Equipment.findAll();
         res.render('equipment/index', { equipments });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
 
-// Formulario para nuevo equipo
 exports.createEquipmentForm = (req, res) => {
     res.render('equipment/new');
 };
 
-// Crear un nuevo equipo
 exports.createEquipment = async (req, res) => {
     try {
-        const { name, description, quantity, imageUrl } = req.body;
-        await Equipment.create({ name, description, quantity, imageUrl });
-        res.redirect('/equipments');
+        const { name, description, image } = req.body;
+        await Equipment.create({ name, description, image });
+        res.redirect('/equipment');
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
 
-// Obtener un equipo por ID
 exports.getEquipmentById = async (req, res) => {
     try {
         const equipment = await Equipment.findByPk(req.params.id);
+        if (!equipment) {
+            return res.status(404).send('Equipment not found');
+        }
         res.render('equipment/show', { equipment });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
 
-// Formulario para editar equipo
 exports.editEquipmentForm = async (req, res) => {
     try {
         const equipment = await Equipment.findByPk(req.params.id);
+        if (!equipment) {
+            return res.status(404).send('Equipment not found');
+        }
         res.render('equipment/edit', { equipment });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
 
-// Actualizar un equipo
 exports.updateEquipment = async (req, res) => {
     try {
-        const { name, description, quantity, imageUrl } = req.body;
-        await Equipment.update({ name, description, quantity, imageUrl }, { where: { id: req.params.id } });
-        res.redirect(`/equipments/${req.params.id}`);
+        const { name, description, image } = req.body;
+        await Equipment.update({ name, description, image }, { where: { id: req.params.id } });
+        res.redirect('/equipment');
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
 
-// Eliminar un equipo
 exports.deleteEquipment = async (req, res) => {
     try {
         await Equipment.destroy({ where: { id: req.params.id } });
-        res.redirect('/equipments');
+        res.redirect('/equipment');
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };

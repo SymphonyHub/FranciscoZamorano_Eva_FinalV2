@@ -35,7 +35,7 @@ app.use('/classes', classRoutes);
 app.use('/reservations', reservationRoutes);
 app.use('/plans', planRoutes);
 app.use('/payments', paymentRoutes);
-app.use('/equipments', equipmentRoutes);
+app.use('/equipment', equipmentRoutes); // Asegúrate de que sea /equipment
 app.use('/feedback', feedbackRoutes);
 
 // Rutas públicas

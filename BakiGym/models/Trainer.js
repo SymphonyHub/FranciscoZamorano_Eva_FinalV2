@@ -1,3 +1,4 @@
+// Trainer.js
 const { sequelize } = require('../config/database');
 const { DataTypes } = require('sequelize');
 

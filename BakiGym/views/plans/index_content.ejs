@@ -1,5 +1,9 @@
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Planes</h2>
+    <h2 class="text-center"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <input type="text" id="filterPlanInput" class="form-control w-25 mr-2" placeholder="Filtrar por ID">
+        <button id="filterPlanButton" class="btn btn-primary">Filtrar</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -11,7 +15,7 @@
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="plansTableBody">
                 <% plans.forEach(function(plan) { %>
                     <tr>
                         <td><%= plan.id %></td>
@@ -22,7 +26,7 @@
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editPlanModal" data-id="<%= plan.id %>" data-name="<%= plan.name %>" data-price="<%= plan.price %>" data-duration="<%= plan.duration %>">Editar</button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletePlanModal" data-id="<%= plan.id %>">Eliminar</button>
-                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#selectPlanModal" data-id="<%= plan.id %>">Seleccionar</button>
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#selectPlanModal" data-id="<%= plan.id %>" data-name="<%= plan.name %>">Seleccionar</button>
                             </div>
                         </td>
                     </tr>
@@ -127,14 +131,17 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="selectPlanForm" method="POST" action="">
+                <form id="selectPlanForm" method="POST" action="/payments/create">
+                    <input type="hidden" id="plan_id" name="planId">
                     <div class="form-group">
                         <label for="user_id">Usuario</label>
-                        <select class="form-control" id="user_id" name="userId" required>
+                        <input list="user_suggestions" class="form-control" id="user_input" name="userName" placeholder="Escribe para buscar..." required>
+                        <datalist id="user_suggestions">
                             <% users.forEach(function(user) { %>
-                                <option value="<%= user.id %>"><%= user.name %></option>
+                                <option value="<%= user.name %>" data-id="<%= user.id %>">
                             <% }); %>
-                        </select>
+                        </datalist>
+                        <input type="hidden" id="user_id" name="userId" required>
                     </div>
                     <div class="form-group">
                         <label for="payment_method">Método de Pago</label>
@@ -152,33 +159,56 @@
 </div>
 
 <script>
-  $('#editPlanModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('id');
-    var name = button.data('name');
-    var price = button.data('price');
-    var duration = button.data('duration');
+  $(document).ready(function() {
+    $('#selectPlanModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        
+        var modal = $(this);
+        $('#plan_id').val(id);
 
-    var modal = $(this);
-    modal.find('.modal-body #edit_name').val(name);
-    modal.find('.modal-body #edit_price').val(price);
-    modal.find('.modal-body #edit_duration').val(duration);
-    modal.find('#editPlanForm').attr('action', '/plans/' + id + '?_method=PUT');
-  });
+        // Añadir evento de búsqueda
+        $('#user_input').on('input', async function() {
+          var searchText = $(this).val().toLowerCase();
+          const response = await fetch('/users/search?query=' + searchText);
+          const users = await response.json();
+          const suggestions = users.map(user => `<option value="${user.name}" data-id="${user.id}">`).join('');
+          $('#user_suggestions').html(suggestions);
+        });
 
-  $('#deletePlanModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('id');
+        // Asignar el valor seleccionado al campo oculto
+        $('#user_input').on('change', function() {
+          var userName = $(this).val();
+          var userId = $('#user_suggestions option[value="' + userName + '"]').data('id');
+          $('#user_id').val(userId);
+        });
+    });
 
-    var modal = $(this);
-    modal.find('#deletePlanForm').attr('action', '/plans/' + id + '?_method=DELETE');
-  });
+    // Verificar que se están asignando los valores correctamente
+    $('#selectPlanForm').on('submit', function() {
+      console.log('planId:', $('#plan_id').val());
+      console.log('userId:', $('#user_id').val());
+    });
 
-  $('#selectPlanModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('id');
-    
-    var modal = $(this);
-    modal.find('#selectPlanForm').attr('action', '/plans/select/' + id);
+    // Filtro de la tabla de planes
+    document.getElementById('filterPlanButton').addEventListener('click', function() {
+      const filterValue = document.getElementById('filterPlanInput').value;
+      const rows = document.querySelectorAll('#plansTableBody tr');
+
+      if (filterValue === '') {
+          rows.forEach(row => {
+              row.style.display = '';
+          });
+      } else {
+          rows.forEach(row => {
+              const id = row.querySelector('td').innerText;
+              if (id === filterValue) {
+                  row.style.display = '';
+              } else {
+                  row.style.display = 'none';
+              }
+          });
+      }
+    });
   });
 </script>

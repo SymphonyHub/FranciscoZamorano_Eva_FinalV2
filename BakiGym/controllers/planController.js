@@ -6,7 +6,7 @@ exports.getAllPlans = async (req, res) => {
     try {
         const plans = await Plan.findAll();
         const users = await User.findAll();
-        
+
         // Convertir plan.price a número
         const formattedPlans = plans.map(plan => ({
             ...plan.toJSON(),
@@ -58,8 +58,8 @@ exports.deletePlan = async (req, res) => {
 
 exports.generatePayment = async (req, res) => {
     try {
-        const { userId, paymentMethod } = req.body;
-        const plan = await Plan.findByPk(req.params.id);
+        const { userId, paymentMethod, planId } = req.body;
+        const plan = await Plan.findByPk(planId);
         const user = await User.findByPk(userId);
 
         if (!plan || !user) {

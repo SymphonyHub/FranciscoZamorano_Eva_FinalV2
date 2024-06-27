@@ -1,3 +1,4 @@
+// reservationRoutes.js
 const express = require('express');
 const router = express.Router();
 const reservationController = require('../controllers/reservationController');
@@ -5,6 +6,7 @@ const reservationController = require('../controllers/reservationController');
 router.get('/', reservationController.getAllReservations);
 router.get('/new', reservationController.getNewReservationForm);
 router.post('/', reservationController.createReservation);
+router.get('/search', reservationController.searchReservations); // Ruta de búsqueda
 router.get('/:id', reservationController.getReservationById);
 router.get('/:id/edit', reservationController.getEditReservationForm);
 router.put('/:id', reservationController.updateReservation);

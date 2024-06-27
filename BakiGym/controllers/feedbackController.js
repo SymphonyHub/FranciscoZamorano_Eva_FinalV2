@@ -5,7 +5,8 @@ exports.getAllFeedback = async (req, res) => {
         const feedbacks = await Feedback.findAll({
             include: [{ model: User, as: 'User' }]
         });
-        res.render('feedback/index', { feedbacks });
+        const users = await User.findAll();
+        res.render('feedback/index', { feedbacks, users });
     } catch (error) {
         res.status(500).send(error.message);
     }
@@ -41,7 +42,7 @@ exports.updateFeedback = async (req, res) => {
             return res.status(404).send('Feedback not found');
         }
         await feedback.update(req.body);
-        res.redirect(`/feedback/${feedback.id}`);
+        res.redirect(`/feedback`);
     } catch (error) {
         res.status(500).send(error.message);
     }

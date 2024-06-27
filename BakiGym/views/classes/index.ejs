@@ -1,4 +1,5 @@
-<%- include('../layout', { title: 'Lista de Clases', content: 'classes/index_content', trainers: trainers }) %>
+<!-- index.ejs -->
+<%- include('../layout', { title: 'Lista de Clases', content: 'classes/index_content' }) %>
 
 <script>
   $('#editClassModal').on('show.bs.modal', function (event) {
@@ -6,12 +7,10 @@
     var id = button.data('id');
     var name = button.data('name');
     var description = button.data('description');
-    var trainerId = button.data('trainerid');
 
     var modal = $(this);
     modal.find('.modal-body #edit_name').val(name);
     modal.find('.modal-body #edit_description').val(description);
-    modal.find('.modal-body #edit_trainer_id').val(trainerId);
     modal.find('#editClassForm').attr('action', '/classes/' + id + '?_method=PUT');
   });
 
@@ -21,5 +20,39 @@
 
     var modal = $(this);
     modal.find('#deleteClassForm').attr('action', '/classes/' + id + '?_method=DELETE');
+  });
+
+  $(document).ready(function() {
+    $('#searchButton').click(function() {
+        const query = $('#search').val();
+        $.ajax({
+            url: '/classes/search',
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                let tableBody = '';
+                data.forEach(function(classItem) {
+                    tableBody += `
+                        <tr>
+                            <td>${classItem.id}</td>
+                            <td>${classItem.name}</td>
+                            <td>${classItem.description}</td>
+                            <td>${classItem.Trainer ? classItem.Trainer.name : 'N/A'}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editClassModal" data-id="${classItem.id}" data-name="${classItem.name}" data-description="${classItem.description}">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteClassModal" data-id="${classItem.id}">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                $('#classTableBody').html(tableBody);
+            },
+            error: function(err) {
+                console.log('Error:', err);
+            }
+        });
+    });
   });
 </script>

@@ -1,1 +1,70 @@
-<%- include('layout', { title: 'Sobre BakiGym', content: 'about_content' }) %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <%- include('partials/navbar') %>
+
+    <div class="d-flex flex-grow-1">
+        <div id="content" class="main-content flex-fill">
+            <button id="sidebarCollapse" class="btn btn-primary">
+                <i class="fas fa-angle-left"></i>
+            </button>
+            <button id="themeToggle" class="btn btn-secondary">
+                <i class="fas fa-moon"></i>
+            </button>
+            <header>
+                <h1 class="title">About</h1>
+            </header>
+            <main class="flex-grow-1">
+                <%- include('about_content') %>
+            </main>
+        </div>
+    </div>
+
+    <%- include('partials/footer') %>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var $sidebar = $('#sidebar');
+            var $sidebarCollapse = $('#sidebarCollapse');
+            var $themeToggle = $('#themeToggle');
+            var $body = $('body');
+
+            $sidebarCollapse.on('click', function () {
+                $sidebar.toggleClass('active');
+                $(this).find('i').toggleClass('fa-angle-left fa-angle-right');
+                localStorage.setItem('sidebarState', $sidebar.hasClass('active') ? 'active' : 'inactive');
+            });
+
+            if (localStorage.getItem('sidebarState') === 'active') {
+                $sidebar.addClass('active');
+                $sidebarCollapse.find('i').toggleClass('fa-angle-left fa-angle-right');
+            } else {
+                $sidebar.removeClass('active');
+            }
+
+            $themeToggle.on('click', function () {
+                $body.toggleClass('dark-mode');
+                $(this).find('i').toggleClass('fa-moon fa-sun');
+                localStorage.setItem('theme', $body.hasClass('dark-mode') ? 'dark' : 'light');
+            });
+
+            if (localStorage.getItem('theme') === 'dark') {
+                $body.addClass('dark-mode');
+                $themeToggle.find('i').toggleClass('fa-moon fa-sun');
+            } else {
+                $body.removeClass('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

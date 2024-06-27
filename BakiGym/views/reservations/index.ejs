@@ -1,1 +1,60 @@
+<!-- index.ejs -->
 <%- include('../layout', { title: 'Lista de Reservas', content: 'reservations/index_content' }) %>
+
+<script>
+  $('#editReservationModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+    var user_id = button.data('user_id');
+    var class_id = button.data('class_id');
+    var date = button.data('date');
+
+    var modal = $(this);
+    modal.find('.modal-body #edit_user_id').val(user_id);
+    modal.find('.modal-body #edit_class_id').val(class_id);
+    modal.find('.modal-body #edit_date').val(date);
+    modal.find('#editReservationForm').attr('action', '/reservations/' + id + '?_method=PUT');
+  });
+
+  $('#deleteReservationModal').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget);
+    var id = button.data('id');
+
+    var modal = $(this);
+    modal.find('#deleteReservationForm').attr('action', '/reservations/' + id + '?_method=DELETE');
+  });
+
+  $(document).ready(function() {
+    $('#searchButton').click(function() {
+        const query = $('#search').val();
+        $.ajax({
+            url: '/reservations/search',
+            type: 'GET',
+            data: { query: query },
+            success: function(data) {
+                let tableBody = '';
+                data.forEach(function(reservation) {
+                    tableBody += `
+                        <tr>
+                            <td>${reservation.id}</td>
+                            <td>${reservation.User.name}</td>
+                            <td>${reservation.Class.name}</td>
+                            <td>${reservation.date}</td>
+                            <td>
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editReservationModal" data-id="${reservation.id}" data-user_id="${reservation.user_id}" data-class_id="${reservation.class_id}" data-date="${reservation.date}">Editar</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteReservationModal" data-id="${reservation.id}">Eliminar</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+                $('#reservationTableBody').html(tableBody);
+            },
+            error: function(err) {
+                console.log('Error:', err);
+            }
+        });
+    });
+  });
+</script>

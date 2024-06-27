@@ -1,5 +1,5 @@
 const { DataTypes } = require('sequelize');
-const { sequelize } = require('../config/database'); // Asegúrate de que sequelize se está importando correctamente
+const { sequelize } = require('../config/database');
 
 const Equipment = sequelize.define('Equipment', {
     name: {
@@ -7,19 +7,16 @@ const Equipment = sequelize.define('Equipment', {
         allowNull: false
     },
     description: {
-        type: DataTypes.TEXT,
-        allowNull: false
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false
     },
     imageUrl: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
 }, {
-    timestamps: true
+    tableName: 'equipment',  // Asegúrate de que este nombre coincide con tu tabla en la base de datos
+    timestamps: false
 });
 
 module.exports = Equipment;

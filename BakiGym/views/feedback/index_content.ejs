@@ -1,35 +1,164 @@
+<!-- Lista de comentarios -->
 <div class="container mt-5">
-    <h2 class="text-center">Lista de Comentarios</h2>
+    <h2 class="text-center"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <input type="text" id="filterFeedbackInput" class="form-control w-25 mr-2" placeholder="Filtrar por ID">
+        <button id="filterFeedbackButton" class="btn btn-primary">Filtrar</button>
+    </div>
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Usuario</th>
-                    <th scope="col">Mensaje</th>
+                    <th scope="col">Comentario</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Acciones</th>
                 </tr>
             </thead>
-            <tbody>
-                <% feedbacks.forEach(feedback => { %>
+            <tbody id="feedbackTableBody">
+                <% feedbacks.forEach(function(feedback) { %>
                     <tr>
                         <td><%= feedback.id %></td>
                         <td><%= feedback.User.name %></td>
                         <td><%= feedback.message %></td>
                         <td><%= new Date(feedback.date).toLocaleDateString() %></td>
                         <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="/feedback/<%= feedback.id %>/edit" class="btn btn-primary btn-sm mr-2">Editar</a>
-                                <form action="/feedback/<%= feedback.id %>?_method=DELETE" method="POST">
-                                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                                </form>
-                            </div>
+                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editFeedbackModal" data-id="<%= feedback.id %>" data-message="<%= feedback.message %>" data-user_id="<%= feedback.user_id %>">Editar</button>
+                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteFeedbackModal" data-id="<%= feedback.id %>">Eliminar</button>
                         </td>
                     </tr>
-                <% }) %>
+                <% }); %>
             </tbody>
         </table>
     </div>
-    <a href="/feedback/new" class="btn btn-primary mt-3">Crear Nuevo Comentario</a>
+    <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createFeedbackModal">Crear Nuevo Comentario</button>
 </div>
+
+<!-- Modals -->
+<!-- Modal para crear comentario -->
+<div class="modal fade" id="createFeedbackModal" tabindex="-1" aria-labelledby="createFeedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createFeedbackModalLabel">Crear Nuevo Comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createFeedbackForm" method="POST" action="/feedback">
+                    <div class="form-group">
+                        <label for="user_id">Usuario</label>
+                        <select class="form-control" id="user_id" name="user_id" required>
+                            <% users.forEach(function(user) { %>
+                                <option value="<%= user.id %>"><%= user.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Comentario</label>
+                        <textarea class="form-control" id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para editar comentario -->
+<div class="modal fade" id="editFeedbackModal" tabindex="-1" aria-labelledby="editFeedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editFeedbackModalLabel">Editar Comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="editFeedbackForm" method="POST">
+                    <div class="form-group">
+                        <label for="edit_user_id">Usuario</label>
+                        <select class="form-control" id="edit_user_id" name="user_id" required>
+                            <% users.forEach(function(user) { %>
+                                <option value="<%= user.id %>"><%= user.name %></option>
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_message">Comentario</label>
+                        <textarea class="form-control" id="edit_message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para eliminar comentario -->
+<div class="modal fade" id="deleteFeedbackModal" tabindex="-1" aria-labelledby="deleteFeedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteFeedbackModalLabel">Eliminar Comentario</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar este comentario?</p>
+                <form id="deleteFeedbackForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#editFeedbackModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var id = button.data('id');
+      var message = button.data('message');
+      var userId = button.data('user_id');
+  
+      var modal = $(this);
+      modal.find('.modal-body #edit_message').val(message);
+      modal.find('.modal-body #edit_user_id').val(userId);
+      modal.find('#editFeedbackForm').attr('action', '/feedback/' + id + '?_method=PUT');
+    });
+  
+    $('#deleteFeedbackModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var id = button.data('id');
+  
+      var modal = $(this);
+      modal.find('#deleteFeedbackForm').attr('action', '/feedback/' + id + '?_method=DELETE');
+    });
+    
+    // Filtro de la tabla de feedback
+    document.getElementById('filterFeedbackButton').addEventListener('click', function() {
+      const filterValue = document.getElementById('filterFeedbackInput').value;
+      const rows = document.querySelectorAll('#feedbackTableBody tr');
+
+      if (filterValue === '') {
+          rows.forEach(row => {
+              row.style.display = '';
+          });
+      } else {
+          rows.forEach(row => {
+              const id = row.querySelector('td').innerText;
+              if (id === filterValue) {
+                  row.style.display = '';
+              } else {
+                  row.style.display = 'none';
+              }
+          });
+      }
+    });
+  });
+</script>
