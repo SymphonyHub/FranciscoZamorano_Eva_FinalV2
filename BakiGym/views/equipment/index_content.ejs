@@ -1,15 +1,21 @@
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h1 class="text-center"></h1>
     <div class="row justify-content-center">
+        <!-- Itera sobre cada equipo y genera una tarjeta para cada uno -->
         <% equipments.forEach(function(equipment) { %>
         <div class="col-md-8 mb-4">
             <div class="equipment-card">
                 <div class="card-img-top-container">
+                    <!-- Muestra la imagen del equipo -->
                     <img src="<%= '/' + equipment.imageUrl %>" class="card-img-top" alt="<%= equipment.name %>">
                 </div>
+                <!-- Muestra el nombre del equipo -->
                 <h5><%= equipment.name %></h5>
+                <!-- Muestra la descripción del equipo -->
                 <p><%= equipment.description %></p>
-                <p>Cantidad: <%= equipment.quantity %></p> <!-- Mostrar la cantidad -->
+                <!-- Muestra la cantidad del equipo -->
+                <p>Cantidad: <%= equipment.quantity %></p>
             </div>
         </div>
         <% }) %>

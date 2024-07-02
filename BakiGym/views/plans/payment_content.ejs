@@ -1,6 +1,10 @@
+<!-- Contenedor principal -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Pagar Plan: <%= plan.name %></h2>
+    <!-- Formulario para realizar el pago del plan -->
     <form action="/plans/<%= plan.id %>/payment" method="POST">
+        <!-- Campo para seleccionar el usuario -->
         <div class="form-group">
             <label for="user_id">Usuario</label>
             <select class="form-control" id="user_id" name="user_id" required>
@@ -9,6 +13,7 @@
                 <% }) %>
             </select>
         </div>
+        <!-- Campo para seleccionar el método de pago -->
         <div class="form-group">
             <label for="payment_method">Método de Pago</label>
             <select class="form-control" id="payment_method" name="payment_method" required>
@@ -17,6 +22,7 @@
                 <option value="debito">Débito</option>
             </select>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-success">Pagar</button>
     </form>
 </div>

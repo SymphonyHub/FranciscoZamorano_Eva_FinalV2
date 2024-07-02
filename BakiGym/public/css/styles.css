@@ -406,3 +406,15 @@ body.dark-mode .btn-danger:hover {
     border-color: #bd2130;
     color: #ffffff;
 }
+/* Agregar al final de tu archivo styles.css */
+.overlay-video {
+    position: relative;
+}
+
+.overlay-video video {
+    width: 100%;
+    height: auto;
+    filter: blur(2px);
+    object-fit: cover;
+    opacity: 0.8;
+}

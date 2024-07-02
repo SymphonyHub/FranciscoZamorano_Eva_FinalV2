@@ -1,12 +1,18 @@
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Detalle de Clase</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Muestra el nombre de la clase -->
             <p><strong>Nombre:</strong> <%= classItem.name %></p>
+            <!-- Muestra la descripción de la clase -->
             <p><strong>Descripción:</strong> <%= classItem.description %></p>
+            <!-- Muestra el nombre del entrenador de la clase, o 'N/A' si no hay entrenador -->
             <p><strong>Entrenador:</strong> <%= classItem.Trainer ? classItem.Trainer.name : 'N/A' %></p>
             <div class="d-flex justify-content-center">
+                <!-- Botón para editar la clase -->
                 <a href="/classes/<%= classItem.id %>/edit" class="btn btn-primary mr-2">Editar</a>
+                <!-- Formulario para eliminar la clase -->
                 <form action="/classes/<%= classItem.id %>?_method=DELETE" method="POST">
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>

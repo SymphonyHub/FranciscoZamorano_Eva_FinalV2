@@ -17,6 +17,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="/css/navbar.css">
     <style>
+        /* Estilos para modos oscuro y claro */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -28,10 +29,12 @@
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100 <%= theme %>-mode">
+    <!-- Incluir el navbar -->
     <%- include('partials/navbar') %>
 
     <div class="d-flex flex-grow-1">
         <div id="content" class="main-content flex-fill">
+            <!-- Botón para colapsar el sidebar -->
             <button id="sidebarCollapse" class="btn btn-primary">
                 <i class="fas fa-angle-left"></i>
             </button>
@@ -43,11 +46,13 @@
                 <h1 class="title"><%= title %></h1>
             </header>
             <main class="flex-grow-1">
+                <!-- Incluir el contenido de 'about_content' -->
                 <%- include('about_content') %>
             </main>
         </div>
     </div>
 
+    <!-- Incluir el footer -->
     <%- include('partials/footer') %>
 
     <script>
@@ -81,6 +86,7 @@
                 setTheme(theme);
             });
 
+            // Función para establecer el tema
             function setTheme(theme) {
                 if (theme === 'dark') {
                     $body.addClass('dark-mode');

@@ -1,14 +1,20 @@
+<!-- Contenedor principal para crear un nuevo entrenador -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Crear Nuevo Entrenador</h2>
+    <!-- Formulario para crear un nuevo entrenador -->
     <form action="/trainers" method="POST">
+        <!-- Campo para el nombre del nuevo entrenador -->
         <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
+        <!-- Campo para la especialidad del nuevo entrenador -->
         <div class="form-group">
             <label for="specialty">Especialidad</label>
             <input type="text" class="form-control" id="specialty" name="specialty" required>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
 </div>

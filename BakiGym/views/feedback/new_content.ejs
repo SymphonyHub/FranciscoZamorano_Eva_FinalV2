@@ -1,8 +1,11 @@
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Nuevo Comentario</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Formulario para crear un nuevo comentario -->
             <form action="/feedback" method="POST">
+                <!-- Campo para seleccionar el usuario -->
                 <div class="form-group">
                     <label for="user_id">Usuario:</label>
                     <select class="form-control" id="user_id" name="user_id" required>
@@ -11,10 +14,12 @@
                         <% }) %>
                     </select>
                 </div>
+                <!-- Campo para el mensaje del comentario -->
                 <div class="form-group">
                     <label for="message">Mensaje:</label>
                     <textarea class="form-control" id="message" name="message" required></textarea>
                 </div>
+                <!-- Botón para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
         </div>

@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Metadatos de la página -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Pagos</title>
+    <!-- Enlace a los archivos CSS de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
+        /* Estilos para el modo oscuro */
         body.dark-mode {
             background-color: #121212;
             color: #ffffff;
@@ -14,6 +17,7 @@
             background-color: #1f1f1f;
             color: #ffffff;
         }
+        /* Estilos para el modo claro */
         body.light-mode {
             background-color: #ffffff;
             color: #000000;
@@ -28,12 +32,16 @@
     </style>
 </head>
 <body class="light-mode">
+    <!-- Contenedor principal -->
     <div class="container mt-5">
-        <h1 class="text-center"></h1>
+        <!-- Título de la página -->
+        <h1 class="text-center">Pagos</h1>
+        <!-- Barra de filtro -->
         <div class="d-flex justify-content-end mb-3">
             <input type="text" id="filterInput" class="form-control w-25 mr-2" placeholder="Filtrar por ID">
             <button id="filterButton" class="btn btn-primary">Filtrar</button>
         </div>
+        <!-- Tabla de pagos -->
         <table class="table table-striped">
             <thead>
                 <tr>

@@ -1,8 +1,13 @@
 <section>
+    <!-- Título de la sección -->
     <h2>Detalle de Equipo</h2>
+    <!-- Muestra el nombre del equipo -->
     <p>Nombre: <%= equipment.name %></p>
+    <!-- Muestra la descripción del equipo -->
     <p>Descripción: <%= equipment.description %></p>
+    <!-- Botón para editar el equipo -->
     <a href="/equipments/<%= equipment.id %>/edit" class="btn btn-primary">Editar</a>
+    <!-- Formulario para eliminar el equipo -->
     <form action="/equipments/<%= equipment.id %>?_method=DELETE" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

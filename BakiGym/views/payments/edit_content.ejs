@@ -1,14 +1,20 @@
+<!-- Sección para editar un pago -->
 <section>
+    <!-- Título de la sección -->
     <h2>Editar Pago</h2>
+    <!-- Formulario para editar un pago -->
     <form action="/payments/<%= payment.id %>?_method=PUT" method="POST">
+        <!-- Campo para el nombre del pago -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= payment.name %>">
         </div>
+        <!-- Campo para la descripción del pago -->
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea class="form-control" id="description" name="description"><%= payment.description %></textarea>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </section>

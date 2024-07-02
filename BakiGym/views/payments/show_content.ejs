@@ -1,8 +1,14 @@
+<!-- Sección para mostrar el detalle de un pago -->
 <section>
+    <!-- Título de la sección -->
     <h2>Detalle de Pago</h2>
+    <!-- Muestra el nombre del pago -->
     <p>Nombre: <%= payment.name %></p>
+    <!-- Muestra la descripción del pago -->
     <p>Descripción: <%= payment.description %></p>
+    <!-- Botón para editar el pago -->
     <a href="/payments/<%= payment.id %>/edit" class="btn btn-primary">Editar</a>
+    <!-- Formulario para eliminar el pago -->
     <form action="/payments/<%= payment.id %>?_method=DELETE" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

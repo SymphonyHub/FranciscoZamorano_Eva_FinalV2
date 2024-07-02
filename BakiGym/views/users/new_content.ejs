@@ -1,19 +1,27 @@
+<!-- Contenedor principal para crear un nuevo usuario -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Crear Nuevo Usuario</h2>
+    <!-- Formulario para crear un nuevo usuario -->
     <form action="/users" method="POST">
+        <!-- Campo para el nombre del nuevo usuario -->
         <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre" required>
         </div>
+        <!-- Campo para el email del nuevo usuario -->
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese el email" required>
         </div>
+        <!-- Campo para la contraseña del nuevo usuario -->
         <div class="form-group">
             <label for="password">Contraseña</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese la contraseña" required>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Crear Usuario</button>
+        <!-- Botón para cancelar y volver a la lista de usuarios -->
         <a href="/users" class="btn btn-secondary">Cancelar</a>
     </form>
 </div>

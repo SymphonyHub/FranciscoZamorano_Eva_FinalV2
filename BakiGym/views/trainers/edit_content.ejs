@@ -1,14 +1,20 @@
+<!-- Contenedor principal para editar un entrenador -->
 <div class="container mt-5">
+    <!-- Título de la sección -->
     <h2 class="text-center">Editar Entrenador</h2>
+    <!-- Formulario para editar un entrenador -->
     <form action="/trainers/<%= trainer.id %>?_method=PUT" method="POST">
+        <!-- Campo para el nombre del entrenador -->
         <div class="form-group">
             <label for="name">Nombre</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= trainer.name %>" required>
         </div>
+        <!-- Campo para la especialidad del entrenador -->
         <div class="form-group">
             <label for="specialty">Especialidad</label>
             <input type="text" class="form-control" id="specialty" name="specialty" value="<%= trainer.specialty %>" required>
         </div>
+        <!-- Botón para guardar los cambios -->
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
     </form>
 </div>

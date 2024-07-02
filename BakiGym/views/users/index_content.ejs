@@ -1,11 +1,15 @@
+<!-- Contenedor principal para la lista de usuarios -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center"></h2>
+    <!-- Barra de búsqueda -->
     <div class="d-flex justify-content-end mb-3">
         <form action="/users/search" method="get" class="form-inline">
             <input type="text" name="query" class="form-control mr-2" placeholder="Buscar usuario por ID o nombre">
             <button type="submit" class="btn btn-primary">Buscar</button>
         </form>
     </div>
+    <!-- Tabla de usuarios -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -28,6 +32,7 @@
                             <td><%= user.name %></td>
                             <td><%= user.email %></td>
                             <td>
+                                <!-- Botones de acción para editar y eliminar -->
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editUserModal" data-id="<%= user.id %>" data-name="<%= user.name %>" data-email="<%= user.email %>">Editar</button>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteUserModal" data-id="<%= user.id %>">Eliminar</button>
@@ -39,6 +44,7 @@
             </tbody>
         </table>
     </div>
+    <!-- Botón para abrir el modal de crear nuevo usuario -->
     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createUserModal">Crear Nuevo Usuario</button>
 </div>
 
@@ -53,19 +59,24 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para crear un nuevo usuario -->
                 <form action="/users" method="POST">
+                    <!-- Campo para el nombre del nuevo usuario -->
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
+                    <!-- Campo para el email del nuevo usuario -->
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
+                    <!-- Campo para la contraseña del nuevo usuario -->
                     <div class="form-group">
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
+                    <!-- Botón para enviar el formulario -->
                     <button type="submit" class="btn btn-primary">Crear</button>
                 </form>
             </div>
@@ -84,19 +95,24 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para editar un usuario -->
                 <form id="editUserForm" method="POST">
+                    <!-- Campo para el nombre del usuario -->
                     <div class="form-group">
                         <label for="edit_name">Nombre</label>
                         <input type="text" class="form-control" id="edit_name" name="name" required>
                     </div>
+                    <!-- Campo para el email del usuario -->
                     <div class="form-group">
                         <label for="edit_email">Email</label>
                         <input type="email" class="form-control" id="edit_email" name="email" required>
                     </div>
+                    <!-- Campo para la contraseña del usuario -->
                     <div class="form-group">
                         <label for="edit_password">Contraseña</label>
                         <input type="password" class="form-control" id="edit_password" name="password" required>
                     </div>
+                    <!-- Botón para guardar los cambios -->
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </form>
             </div>
@@ -116,7 +132,9 @@
             </div>
             <div class="modal-body">
                 <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+                <!-- Formulario para eliminar un usuario -->
                 <form id="deleteUserForm" method="POST">
+                    <!-- Botón para confirmar la eliminación -->
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
             </div>

@@ -1,8 +1,12 @@
+<!-- Contenedor principal -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Nueva Reserva</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Formulario para crear una nueva reserva -->
             <form action="/reservations" method="POST">
+                <!-- Campo para seleccionar el usuario -->
                 <div class="form-group">
                     <label for="user_id">Usuario:</label>
                     <select class="form-control" id="user_id" name="user_id" required>
@@ -11,6 +15,7 @@
                         <% }) %>
                     </select>
                 </div>
+                <!-- Campo para seleccionar la clase -->
                 <div class="form-group">
                     <label for="class_id">Clase:</label>
                     <select class="form-control" id="class_id" name="class_id" required>
@@ -19,10 +24,12 @@
                         <% }) %>
                     </select>
                 </div>
+                <!-- Campo para seleccionar la fecha -->
                 <div class="form-group">
                     <label for="date">Fecha:</label>
                     <input type="date" class="form-control" id="date" name="date" required>
                 </div>
+                <!-- Botón para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
         </div>

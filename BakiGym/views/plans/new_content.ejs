@@ -1,18 +1,25 @@
+<!-- Sección para crear un nuevo plan -->
 <section>
+    <!-- Título de la sección -->
     <h2>Crear Nuevo Plan</h2>
+    <!-- Formulario para crear un nuevo plan -->
     <form action="/plans" method="POST">
+        <!-- Campo para el nombre del plan -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name" required>
         </div>
+        <!-- Campo para el precio del plan -->
         <div class="form-group">
             <label for="price">Precio:</label>
             <input type="text" class="form-control" id="price" name="price" required>
         </div>
+        <!-- Campo para la duración del plan -->
         <div class="form-group">
             <label for="duration">Duración:</label>
             <input type="text" class="form-control" id="duration" name="duration" required>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
 </section>

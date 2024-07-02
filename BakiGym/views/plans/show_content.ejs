@@ -1,8 +1,14 @@
+<!-- Sección para mostrar el detalle de un plan -->
 <section>
+    <!-- Título de la sección -->
     <h2>Detalle de Plan</h2>
+    <!-- Muestra el nombre del plan -->
     <p>Nombre: <%= plan.name %></p>
+    <!-- Muestra la descripción del plan -->
     <p>Descripción: <%= plan.description %></p>
+    <!-- Botón para editar el plan -->
     <a href="/plans/<%= plan.id %>/edit" class="btn btn-primary">Editar</a>
+    <!-- Formulario para eliminar el plan -->
     <form action="/plans/<%= plan.id %>?_method=DELETE" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

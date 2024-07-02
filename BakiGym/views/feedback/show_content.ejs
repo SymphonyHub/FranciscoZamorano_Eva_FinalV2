@@ -1,9 +1,15 @@
 <section>
+    <!-- Título de la sección -->
     <h2>Detalle de Comentario</h2>
+    <!-- Muestra el nombre del usuario del comentario o un mensaje si el usuario no se encuentra -->
     <p>Usuario: <%= feedback.User ? feedback.User.name : 'Usuario no encontrado' %></p>
+    <!-- Muestra el mensaje del comentario -->
     <p>Mensaje: <%= feedback.message %></p>
+    <!-- Muestra la fecha del comentario formateada -->
     <p>Fecha: <%= new Date(feedback.date).toLocaleDateString() %></p>
+    <!-- Botón para editar el comentario -->
     <a href="/feedback/<%= feedback.id %>/edit" class="btn btn-primary">Editar</a>
+    <!-- Formulario para eliminar el comentario -->
     <form action="/feedback/<%= feedback.id %>?_method=DELETE" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

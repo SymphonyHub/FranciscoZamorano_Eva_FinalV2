@@ -1,9 +1,12 @@
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center"></h2>
+    <!-- Barra de filtro -->
     <div class="d-flex justify-content-end mb-3">
         <input type="text" id="filterPlanInput" class="form-control w-25 mr-2" placeholder="Filtrar por ID">
         <button id="filterPlanButton" class="btn btn-primary">Filtrar</button>
     </div>
+    <!-- Tabla de planes -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -23,6 +26,7 @@
                         <td>$<%= plan.price.toFixed(2) %></td>
                         <td><%= plan.duration %> días</td>
                         <td>
+                            <!-- Botones de acción para editar, eliminar y seleccionar -->
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editPlanModal" data-id="<%= plan.id %>" data-name="<%= plan.name %>" data-price="<%= plan.price %>" data-duration="<%= plan.duration %>">Editar</button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deletePlanModal" data-id="<%= plan.id %>">Eliminar</button>
@@ -34,6 +38,7 @@
             </tbody>
         </table>
     </div>
+    <!-- Botón para abrir el modal de crear nuevo plan -->
     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createPlanModal">Crear Nuevo Plan</button>
 </div>
 
@@ -160,6 +165,7 @@
 
 <script>
   $(document).ready(function() {
+    // Evento para mostrar el modal de editar plan
     $('#editPlanModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
@@ -174,6 +180,7 @@
         modal.find('#edit_duration').val(duration);
     });
 
+    // Evento para mostrar el modal de eliminar plan
     $('#deletePlanModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
@@ -182,6 +189,7 @@
         modal.find('#deletePlanForm').attr('action', '/plans/' + id + '?_method=DELETE');
     });
 
+    // Evento para mostrar el modal de seleccionar plan
     $('#selectPlanModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
@@ -204,11 +212,13 @@
         });
     });
 
+    // Evento para el formulario de seleccionar plan
     $('#selectPlanForm').on('submit', function() {
       console.log('planId:', $('#plan_id').val());
       console.log('userId:', $('#user_id').val());
     });
 
+    // Evento para filtrar la tabla de planes
     document.getElementById('filterPlanButton').addEventListener('click', function() {
       const filterValue = document.getElementById('filterPlanInput').value;
       const rows = document.querySelectorAll('#plansTableBody tr');

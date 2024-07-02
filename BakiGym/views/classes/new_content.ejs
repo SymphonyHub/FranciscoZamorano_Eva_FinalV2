@@ -1,16 +1,21 @@
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center">Nueva Clase</h2>
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <!-- Formulario para crear una nueva clase -->
             <form action="/classes" method="POST">
+                <!-- Campo para el nombre de la clase -->
                 <div class="form-group">
                     <label for="name">Nombre:</label>
                     <input type="text" class="form-control" id="name" name="name" required>
                 </div>
+                <!-- Campo para la descripción de la clase -->
                 <div class="form-group">
                     <label for="description">Descripción:</label>
                     <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
+                <!-- Campo para seleccionar el entrenador de la clase -->
                 <div class="form-group">
                     <label for="trainer_id">Entrenador:</label>
                     <select class="form-control" id="trainer_id" name="trainer_id" required>
@@ -19,6 +24,7 @@
                         <% }) %>
                     </select>
                 </div>
+                <!-- Botón para enviar el formulario -->
                 <button type="submit" class="btn btn-primary btn-block">Crear</button>
             </form>
         </div>

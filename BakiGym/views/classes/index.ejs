@@ -2,35 +2,38 @@
 <%- include('../layout', { title: 'Lista de Clases', content: 'classes/index_content' }) %>
 
 <script>
+  // Configuración del modal para editar una clase
   $('#editClassModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('id');
-    var name = button.data('name');
-    var description = button.data('description');
+    var button = $(event.relatedTarget); // Botón que activó el modal
+    var id = button.data('id'); // Obtiene el ID de la clase
+    var name = button.data('name'); // Obtiene el nombre de la clase
+    var description = button.data('description'); // Obtiene la descripción de la clase
 
-    var modal = $(this);
-    modal.find('.modal-body #edit_name').val(name);
-    modal.find('.modal-body #edit_description').val(description);
-    modal.find('#editClassForm').attr('action', '/classes/' + id + '?_method=PUT');
+    var modal = $(this); // Obtiene el modal
+    modal.find('.modal-body #edit_name').val(name); // Establece el valor del campo de nombre en el modal
+    modal.find('.modal-body #edit_description').val(description); // Establece el valor del campo de descripción en el modal
+    modal.find('#editClassForm').attr('action', '/classes/' + id + '?_method=PUT'); // Establece la acción del formulario en el modal
   });
 
+  // Configuración del modal para eliminar una clase
   $('#deleteClassModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var id = button.data('id');
+    var button = $(event.relatedTarget); // Botón que activó el modal
+    var id = button.data('id'); // Obtiene el ID de la clase
 
-    var modal = $(this);
-    modal.find('#deleteClassForm').attr('action', '/classes/' + id + '?_method=DELETE');
+    var modal = $(this); // Obtiene el modal
+    modal.find('#deleteClassForm').attr('action', '/classes/' + id + '?_method=DELETE'); // Establece la acción del formulario en el modal
   });
 
   $(document).ready(function() {
+    // Configuración del botón de búsqueda
     $('#searchButton').click(function() {
-        const query = $('#search').val();
+        const query = $('#search').val(); // Obtiene el valor de búsqueda
         $.ajax({
-            url: '/classes/search',
-            type: 'GET',
-            data: { query: query },
+            url: '/classes/search', // URL de búsqueda
+            type: 'GET', // Método de la solicitud
+            data: { query: query }, // Datos de la solicitud
             success: function(data) {
-                let tableBody = '';
+                let tableBody = ''; // Variable para almacenar las filas de la tabla
                 data.forEach(function(classItem) {
                     tableBody += `
                         <tr>
@@ -47,10 +50,10 @@
                         </tr>
                     `;
                 });
-                $('#classTableBody').html(tableBody);
+                $('#classTableBody').html(tableBody); // Actualiza el cuerpo de la tabla con los datos obtenidos
             },
             error: function(err) {
-                console.log('Error:', err);
+                console.log('Error:', err); // Manejo de errores
             }
         });
     });

@@ -1,10 +1,13 @@
 <!-- Lista de comentarios -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center"></h2>
+    <!-- Barra de filtro -->
     <div class="d-flex justify-content-end mb-3">
         <input type="text" id="filterFeedbackInput" class="form-control w-25 mr-2" placeholder="Filtrar por ID">
         <button id="filterFeedbackButton" class="btn btn-primary">Filtrar</button>
     </div>
+    <!-- Tabla de comentarios -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -24,6 +27,7 @@
                         <td><%= feedback.message %></td>
                         <td><%= new Date(feedback.date).toLocaleDateString() %></td>
                         <td>
+                            <!-- Botones de acción para editar y eliminar -->
                             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editFeedbackModal" data-id="<%= feedback.id %>" data-message="<%= feedback.message %>" data-user_id="<%= feedback.user_id %>">Editar</button>
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteFeedbackModal" data-id="<%= feedback.id %>">Eliminar</button>
                         </td>
@@ -32,6 +36,7 @@
             </tbody>
         </table>
     </div>
+    <!-- Botón para crear un nuevo comentario -->
     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createFeedbackModal">Crear Nuevo Comentario</button>
 </div>
 

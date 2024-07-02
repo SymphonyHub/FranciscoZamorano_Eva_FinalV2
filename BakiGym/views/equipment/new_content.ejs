@@ -1,14 +1,19 @@
 <section>
+    <!-- Título de la sección -->
     <h2>Nuevo Equipo</h2>
+    <!-- Formulario para crear un nuevo equipo -->
     <form action="/equipments" method="POST">
+        <!-- Campo para el nombre del equipo -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name">
         </div>
+        <!-- Campo para la descripción del equipo -->
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea class="form-control" id="description" name="description"></textarea>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
 </section>

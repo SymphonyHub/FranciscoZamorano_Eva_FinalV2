@@ -1,42 +1,56 @@
+<!-- Carrusel de imágenes sobre el gimnasio -->
 <div id="aboutCarousel" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
+        <!-- Primer ítem del carrusel -->
         <div class="carousel-item active">
             <div class="overlay-image">
+                <!-- Imagen del ítem -->
                 <img src="/images/oliva.png" class="d-block w-100 carousel-image" alt="Oliva">
             </div>
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-start overlay-text">
+                <!-- Título y descripción del ítem -->
                 <h1 class="display-4">Bienvenido a BakiGym</h1>
                 <p class="lead">El lugar donde transformamos tus sueños en realidad. Únete a nosotros y comienza tu viaje hacia un cuerpo más fuerte y saludable.</p>
             </div>
         </div>
+        <!-- Segundo ítem del carrusel -->
         <div class="carousel-item">
             <div class="overlay-image">
+                <!-- Imagen del ítem -->
                 <img src="/images/kakuKaioh.png" class="d-block w-100 carousel-image" alt="KakuKaioh">
             </div>
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-start overlay-text">
+                <!-- Título y descripción del ítem -->
                 <h1 class="display-4">Transforma tu vida</h1>
                 <p class="lead">Descubre el poder del entrenamiento constante y la dedicación. Mejora tu salud física y mental con nosotros.</p>
             </div>
         </div>
+        <!-- Tercer ítem del carrusel -->
         <div class="carousel-item">
             <div class="overlay-image">
+                <!-- Imagen del ítem -->
                 <img src="/images/bakiBoxeador.png" class="d-block w-100 carousel-image" alt="BakiBoxeador">
             </div>
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-start overlay-text">
+                <!-- Título y descripción del ítem -->
                 <h1 class="display-4">Desafía tus límites</h1>
                 <p class="lead">Nuestros entrenadores expertos están aquí para ayudarte a alcanzar tus objetivos y superar tus límites.</p>
             </div>
         </div>
+        <!-- Cuarto ítem del carrusel -->
         <div class="carousel-item">
             <div class="overlay-image">
+                <!-- Imagen del ítem -->
                 <img src="/images/bakiverso.png" class="d-block w-100 carousel-image" alt="Bakiverso">
             </div>
             <div class="carousel-caption d-flex flex-column justify-content-center align-items-start overlay-text">
+                <!-- Título y descripción del ítem -->
                 <h1 class="display-4">Únete a la comunidad Baki</h1>
                 <p class="lead">Forma parte de una comunidad de personas apasionadas por el fitness y el bienestar. ¡Te esperamos!</p>
             </div>
         </div>
     </div>
+    <!-- Controles de navegación del carrusel -->
     <a class="carousel-control-prev" href="#aboutCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="sr-only">Previous</span>
@@ -47,6 +61,7 @@
     </a>
 </div>
 
+<!-- Script para inicializar el carrusel y configurar el intervalo de tiempo entre ítems -->
 <script>
     $(document).ready(function(){
         $('#aboutCarousel').carousel({

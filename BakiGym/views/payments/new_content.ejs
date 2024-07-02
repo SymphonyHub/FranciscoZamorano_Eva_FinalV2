@@ -1,14 +1,20 @@
+<!-- Sección para crear un nuevo pago -->
 <section>
+    <!-- Título de la sección -->
     <h2>Nuevo Pago</h2>
+    <!-- Formulario para crear un nuevo pago -->
     <form action="/payments" method="POST">
+        <!-- Campo para el nombre del pago -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name">
         </div>
+        <!-- Campo para la descripción del pago -->
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea class="form-control" id="description" name="description"></textarea>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Crear</button>
     </form>
 </section>

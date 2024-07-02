@@ -1,9 +1,16 @@
+<!-- Sección para mostrar el detalle de una reserva -->
 <section>
+    <!-- Título de la sección -->
     <h2>Detalle de Reserva</h2>
+    <!-- Muestra el usuario de la reserva -->
     <p>Usuario: <%= reservation.User.name %></p>
+    <!-- Muestra la clase de la reserva -->
     <p>Clase: <%= reservation.Class.name %></p>
+    <!-- Muestra la fecha de la reserva -->
     <p>Fecha: <%= reservation.date %></p>
+    <!-- Botón para editar la reserva -->
     <a href="/reservations/<%= reservation.id %>/edit" class="btn btn-primary">Editar</a>
+    <!-- Formulario para eliminar la reserva -->
     <form action="/reservations/<%= reservation.id %>?_method=DELETE" method="POST" class="d-inline">
         <button type="submit" class="btn btn-danger">Eliminar</button>
     </form>

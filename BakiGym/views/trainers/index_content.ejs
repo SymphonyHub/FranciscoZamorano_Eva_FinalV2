@@ -1,10 +1,13 @@
-<!-- index_content.ejs -->
+<!-- Contenedor principal para la lista de entrenadores -->
 <div class="container mt-5">
+    <!-- Título de la página -->
     <h2 class="text-center"></h2>
+    <!-- Barra de búsqueda -->
     <div class="d-flex justify-content-end mb-3">
         <input type="text" id="search" class="form-control form-control-sm w-25" placeholder="Buscar por ID o Nombre">
         <button id="searchButton" class="btn btn-primary btn-sm ml-2">Buscar</button>
     </div>
+    <!-- Tabla de entrenadores -->
     <div class="table-responsive">
         <table class="table table-hover table-bordered">
             <thead class="thead-dark">
@@ -22,6 +25,7 @@
                         <td><%= trainer.name %></td>
                         <td><%= trainer.specialty %></td>
                         <td>
+                            <!-- Botones de acción para editar y eliminar -->
                             <div class="btn-group" role="group">
                                 <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#editTrainerModal" data-id="<%= trainer.id %>" data-name="<%= trainer.name %>" data-specialty="<%= trainer.specialty %>">Editar</button>
                                 <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteTrainerModal" data-id="<%= trainer.id %>">Eliminar</button>
@@ -32,6 +36,7 @@
             </tbody>
         </table>
     </div>
+    <!-- Botón para abrir el modal de crear nuevo entrenador -->
     <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#createTrainerModal">Crear Nuevo Entrenador</button>
 </div>
 
@@ -46,15 +51,19 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para crear un nuevo entrenador -->
                 <form action="/trainers" method="POST">
+                    <!-- Campo para el nombre del nuevo entrenador -->
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
+                    <!-- Campo para la especialidad del nuevo entrenador -->
                     <div class="form-group">
                         <label for="specialty">Especialidad</label>
                         <input type="text" class="form-control" id="specialty" name="specialty" required>
                     </div>
+                    <!-- Botón para enviar el formulario -->
                     <button type="submit" class="btn btn-primary">Crear</button>
                 </form>
             </div>
@@ -73,15 +82,19 @@
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Formulario para editar un entrenador -->
                 <form id="editTrainerForm" method="POST">
+                    <!-- Campo para el nombre del entrenador -->
                     <div class="form-group">
                         <label for="edit_name">Nombre</label>
                         <input type="text" class="form-control" id="edit_name" name="name" required>
                     </div>
+                    <!-- Campo para la especialidad del entrenador -->
                     <div class="form-group">
                         <label for="edit_specialty">Especialidad</label>
                         <input type="text" class="form-control" id="edit_specialty" name="specialty" required>
                     </div>
+                    <!-- Botón para guardar los cambios -->
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </form>
             </div>
@@ -101,7 +114,9 @@
             </div>
             <div class="modal-body">
                 <p>¿Estás seguro de que deseas eliminar este entrenador?</p>
+                <!-- Formulario para eliminar un entrenador -->
                 <form id="deleteTrainerForm" method="POST">
+                    <!-- Botón para confirmar la eliminación -->
                     <button type="submit" class="btn btn-danger">Eliminar</button>
                 </form>
             </div>

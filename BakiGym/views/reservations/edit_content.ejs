@@ -1,14 +1,20 @@
+<!-- Sección para editar una reserva -->
 <section>
+    <!-- Título de la sección -->
     <h2>Editar Reserva</h2>
+    <!-- Formulario para editar una reserva -->
     <form action="/reservations/<%= reservation.id %>?_method=PUT" method="POST">
+        <!-- Campo para el nombre de la reserva -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= reservation.name %>">
         </div>
+        <!-- Campo para la descripción de la reserva -->
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea class="form-control" id="description" name="description"><%= reservation.description %></textarea>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </section>

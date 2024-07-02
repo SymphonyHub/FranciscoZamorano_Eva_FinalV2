@@ -1,10 +1,17 @@
+<!-- Contenedor principal para mostrar el detalle de un entrenador -->
 <div class="container mt-5">
+    <!-- Título de la sección -->
     <h2 class="text-center">Detalles del Entrenador</h2>
+    <!-- Tarjeta de detalle del entrenador -->
     <div class="card">
         <div class="card-body">
+            <!-- Mostrar el nombre del entrenador -->
             <h5 class="card-title"><%= trainer.name %></h5>
+            <!-- Mostrar la especialidad del entrenador -->
             <p class="card-text"><strong>Especialidad:</strong> <%= trainer.specialty %></p>
+            <!-- Botón para editar el entrenador -->
             <a href="/trainers/<%= trainer.id %>/edit" class="btn btn-primary">Editar</a>
+            <!-- Formulario para eliminar el entrenador -->
             <form action="/trainers/<%= trainer.id %>?_method=DELETE" method="POST" class="d-inline">
                 <button type="submit" class="btn btn-danger">Eliminar</button>
             </form>

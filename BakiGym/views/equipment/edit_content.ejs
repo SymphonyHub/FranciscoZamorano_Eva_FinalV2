@@ -1,14 +1,19 @@
 <section>
+    <!-- Título de la sección -->
     <h2>Editar Equipo</h2>
+    <!-- Formulario para editar un equipo -->
     <form action="/equipments/<%= equipment.id %>?_method=PUT" method="POST">
+        <!-- Campo para el nombre del equipo -->
         <div class="form-group">
             <label for="name">Nombre:</label>
             <input type="text" class="form-control" id="name" name="name" value="<%= equipment.name %>">
         </div>
+        <!-- Campo para la descripción del equipo -->
         <div class="form-group">
             <label for="description">Descripción:</label>
             <textarea class="form-control" id="description" name="description"><%= equipment.description %></textarea>
         </div>
+        <!-- Botón para enviar el formulario -->
         <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
 </section>
