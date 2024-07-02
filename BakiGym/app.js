@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
+const morgan = require('morgan'); // Importar morgan para registro de solicitudes HTTP
 const { sequelize, connectDB } = require('./config/database');
 
 // Importación de rutas
@@ -26,6 +27,7 @@ app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
 // Middlewares para análisis de solicitudes y manejo de formularios
+app.use(morgan('dev')); // Usar morgan para registrar las solicitudes HTTP
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method')); // Soporte para otros métodos HTTP como PUT y DELETE
