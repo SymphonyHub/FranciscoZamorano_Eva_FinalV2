@@ -160,6 +160,28 @@
 
 <script>
   $(document).ready(function() {
+    $('#editPlanModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        var name = button.data('name');
+        var price = button.data('price');
+        var duration = button.data('duration');
+        
+        var modal = $(this);
+        modal.find('#editPlanForm').attr('action', '/plans/' + id + '?_method=PUT');
+        modal.find('#edit_name').val(name);
+        modal.find('#edit_price').val(price);
+        modal.find('#edit_duration').val(duration);
+    });
+
+    $('#deletePlanModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var id = button.data('id');
+        
+        var modal = $(this);
+        modal.find('#deletePlanForm').attr('action', '/plans/' + id + '?_method=DELETE');
+    });
+
     $('#selectPlanModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var id = button.data('id');
@@ -167,7 +189,6 @@
         var modal = $(this);
         $('#plan_id').val(id);
 
-        // Añadir evento de búsqueda
         $('#user_input').on('input', async function() {
           var searchText = $(this).val().toLowerCase();
           const response = await fetch('/users/search?query=' + searchText);
@@ -176,7 +197,6 @@
           $('#user_suggestions').html(suggestions);
         });
 
-        // Asignar el valor seleccionado al campo oculto
         $('#user_input').on('change', function() {
           var userName = $(this).val();
           var userId = $('#user_suggestions option[value="' + userName + '"]').data('id');
@@ -184,13 +204,11 @@
         });
     });
 
-    // Verificar que se están asignando los valores correctamente
     $('#selectPlanForm').on('submit', function() {
       console.log('planId:', $('#plan_id').val());
       console.log('userId:', $('#user_id').val());
     });
 
-    // Filtro de la tabla de planes
     document.getElementById('filterPlanButton').addEventListener('click', function() {
       const filterValue = document.getElementById('filterPlanInput').value;
       const rows = document.querySelectorAll('#plansTableBody tr');

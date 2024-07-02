@@ -64,6 +64,7 @@ CREATE TABLE Payments (
     FOREIGN KEY (user_id) REFERENCES Users(id)
     ON DELETE CASCADE,
     FOREIGN KEY (plan_id) REFERENCES Plans(id)
+    ON DELETE CASCADE -- Esta es la modificación para permitir eliminación en cascada
 );
 
 CREATE TABLE Equipment (
@@ -91,7 +92,7 @@ CREATE TABLE Feedback (
 INSERT INTO Users (name, email, password) VALUES
 ('Pipe Saurio', 'Pipe@Gmail.com', 'password123'),
 ('Jesus Vidal', 'ResidenteCuatro@Gmail.com', 'password123'),
-('Hopu Andrew', 'HoAn@Gmail.com', 'password123');
+('Hopu Andrew', 'hopu@gmail.com', 'hopu');
 
 INSERT INTO Trainers (name, specialty) VALUES
 ('Alice Johnson', 'Yoga'),

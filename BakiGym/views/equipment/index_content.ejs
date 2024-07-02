@@ -1,17 +1,17 @@
 <div class="container mt-5">
-    <h1 class="text-center mb-4"></h1>
+    <h1 class="text-center"></h1>
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <% equipments.forEach(function(equipment) { %>
-                <div class="card mb-4">
-                    <img class="card-img-top mx-auto d-block" src="<%= '/' + equipment.imageUrl %>" alt="<%= equipment.name %>">
-                    <div class="card-body text-center">
-                        <h5 class="card-title"><%= equipment.name %></h5>
-                        <p class="card-text"><%= equipment.description %></p>
-                        <p class="card-text"><strong>Cantidad:</strong> <%= equipment.quantity %></p>
-                    </div>
+        <% equipments.forEach(function(equipment) { %>
+        <div class="col-md-8 mb-4">
+            <div class="equipment-card">
+                <div class="card-img-top-container">
+                    <img src="<%= '/' + equipment.imageUrl %>" class="card-img-top" alt="<%= equipment.name %>">
                 </div>
-            <% }); %>
+                <h5><%= equipment.name %></h5>
+                <p><%= equipment.description %></p>
+                <p>Cantidad: <%= equipment.quantity %></p> <!-- Mostrar la cantidad -->
+            </div>
         </div>
+        <% }) %>
     </div>
 </div>

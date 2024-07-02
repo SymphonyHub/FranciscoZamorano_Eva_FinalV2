@@ -1,3 +1,4 @@
+// controllers/equipmentController.js
 const Equipment = require('../models/Equipment');
 
 exports.getAllEquipments = async (req, res) => {
@@ -5,6 +6,7 @@ exports.getAllEquipments = async (req, res) => {
         const equipments = await Equipment.findAll();
         res.render('equipment/index', { equipments });
     } catch (error) {
+        console.error(error);
         res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
     }
 };
@@ -15,8 +17,8 @@ exports.createEquipmentForm = (req, res) => {
 
 exports.createEquipment = async (req, res) => {
     try {
-        const { name, description, image } = req.body;
-        await Equipment.create({ name, description, image });
+        const { name, description, imageUrl, quantity } = req.body;
+        await Equipment.create({ name, description, imageUrl, quantity });
         res.redirect('/equipment');
     } catch (error) {
         res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });
@@ -49,8 +51,8 @@ exports.editEquipmentForm = async (req, res) => {
 
 exports.updateEquipment = async (req, res) => {
     try {
-        const { name, description, image } = req.body;
-        await Equipment.update({ name, description, image }, { where: { id: req.params.id } });
+        const { name, description, imageUrl, quantity } = req.body;
+        await Equipment.update({ name, description, imageUrl, quantity }, { where: { id: req.params.id } });
         res.redirect('/equipment');
     } catch (error) {
         res.status(500).send({ error: { message: 'NO SE ENCUENTRA' } });

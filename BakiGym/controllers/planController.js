@@ -1,30 +1,31 @@
-const puppeteer = require('puppeteer');
-const path = require('path');
-const { Plan, User, Payment } = require('../models');
+// controllers/planController.js
+const { Plan, Payment, User } = require('../models'); // Asegúrate de incluir User
 
+// Función para obtener todos los planes
 exports.getAllPlans = async (req, res) => {
     try {
         const plans = await Plan.findAll();
-        const users = await User.findAll();
+        const users = await User.findAll(); // Obtener todos los usuarios
 
-        // Convertir plan.price a número
         const formattedPlans = plans.map(plan => ({
             ...plan.toJSON(),
             price: parseFloat(plan.price)
         }));
 
-        res.render('plans/index', { plans: formattedPlans, users });
+        res.render('plans/index', { plans: formattedPlans, users }); // Pasar usuarios a la vista
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
+
+// Otras funciones del controlador...
 
 exports.createPlan = async (req, res) => {
     try {
         const { name, price, duration } = req.body;
         await Plan.create({
             name,
-            price: parseFloat(price), // Asegurar que price sea numérico
+            price: parseFloat(price),
             duration: parseInt(duration, 10)
         });
         res.redirect('/plans');
@@ -38,7 +39,7 @@ exports.updatePlan = async (req, res) => {
         const { name, price, duration } = req.body;
         await Plan.update({
             name,
-            price: parseFloat(price), // Asegurar que price sea numérico
+            price: parseFloat(price),
             duration: parseInt(duration, 10)
         }, { where: { id: req.params.id } });
         res.redirect('/plans');
@@ -49,7 +50,14 @@ exports.updatePlan = async (req, res) => {
 
 exports.deletePlan = async (req, res) => {
     try {
-        await Plan.destroy({ where: { id: req.params.id } });
+        const planId = req.params.id;
+        
+        // Eliminar pagos asociados
+        await Payment.destroy({ where: { plan_id: planId } });
+        
+        // Eliminar el plan
+        await Plan.destroy({ where: { id: planId } });
+        
         res.redirect('/plans');
     } catch (error) {
         res.status(500).send(error.message);
@@ -94,6 +102,18 @@ exports.generatePayment = async (req, res) => {
 
         res.download(pdfPath);
 
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+exports.renderEditPlanForm = async (req, res) => {
+    try {
+        const plan = await Plan.findByPk(req.params.id);
+        if (!plan) {
+            return res.status(404).send('Plan no encontrado');
+        }
+        res.render('plans/edit', { plan });
     } catch (error) {
         res.status(500).send(error.message);
     }

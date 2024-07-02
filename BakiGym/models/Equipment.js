@@ -1,3 +1,4 @@
+// models/Equipment.js
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../config/database');
 
@@ -13,9 +14,14 @@ const Equipment = sequelize.define('Equipment', {
     imageUrl: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0
     }
 }, {
-    tableName: 'equipment',  // Asegúrate de que este nombre coincide con tu tabla en la base de datos
+    tableName: 'equipment',
     timestamps: false
 });
 

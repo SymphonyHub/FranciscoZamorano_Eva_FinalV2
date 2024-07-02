@@ -9,7 +9,7 @@ body {
 
 body.dark-mode {
     background-color: #2a2a2a; /* Ajuste el color de fondo para modo noche */
-    color: #000000;
+    color: #e0e0e0;
 }
 
 body.dark-mode .title, body.dark-mode .lead {
@@ -81,7 +81,7 @@ body.dark-mode .sidebar ul p {
     font-size: 1.1em;
     display: block;
     width: 100%;
-    color: #000000; /* Letras blancas en modo día */
+    color: #000000; /* Letras negras en modo día */
     text-decoration: none;
 }
 
@@ -288,4 +288,121 @@ body.dark-mode .overlay-image img {
     width: 100%;
     height: 600px; /* Ajusta la altura según sea necesario */
     object-fit: cover;
+}
+
+/* Estilos para las tarjetas de equipos */
+.equipment-card {
+    background-color: #ffffff;
+    color: #343a40;
+    border: 1px solid #dee2e6;
+    padding: 20px;
+    text-align: center;
+}
+
+.equipment-card h5 {
+    margin-top: 10px;
+    font-size: 1.25rem;
+    color: #343a40;
+}
+
+.equipment-card p {
+    font-size: 1rem;
+    color: #6c757d;
+}
+
+body.dark-mode .equipment-card {
+    background-color: #1f1f1f;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark-mode .equipment-card h5 {
+    color: #e0e0e0;
+}
+
+body.dark-mode .equipment-card p {
+    color: #b0b0b0;
+}
+
+.card-img-top-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 300px; /* Fija la altura */
+    width: 100%; /* Asegura que el contenedor ocupe el ancho completo */
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-color: #ffffff;
+}
+
+.card-img-top {
+    max-height: 100%; /* Asegura que la imagen no se salga del contenedor */
+    width: auto; /* Mantiene la proporción de la imagen */
+    max-width: 100%; /* Asegura que la imagen no se salga del contenedor */
+    object-fit: contain; /* Mantiene la proporción y muestra toda la imagen */
+}
+
+body.dark-mode .card-img-top-container {
+    background-color: #1f1f1f;
+}
+
+/* Modal Styles */
+.modal-content {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.dark-mode .modal-content {
+    background-color: #2a2a2a; /* Fondo del modal en modo noche */
+    color: #e0e0e0; /* Texto claro en modo noche */
+}
+
+.modal-header, .modal-body, .modal-footer {
+    border: none;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+/* Modo noche para botones */
+body.dark-mode .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #ffffff;
+}
+
+body.dark-mode .btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+    color: #ffffff;
 }

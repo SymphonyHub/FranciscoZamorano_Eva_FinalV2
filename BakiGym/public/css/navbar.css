@@ -1,0 +1,20 @@
+/* Estilos para el modo oscuro */
+.sidebar.dark-mode {
+    background-color: #1f1f1f;
+    color: #ffffff;
+}
+
+/* Estilos para el modo claro */
+.sidebar.light-mode {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Otros estilos de la barra lateral */
+.sidebar .nav-link {
+    color: inherit;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.1); /* Ajuste para que se vea bien en ambos modos */
+}
